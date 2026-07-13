@@ -7,13 +7,13 @@
 **Kernel:** Ubuntu Noble Base  
 **Author:** Aminul Islam
 
----
+
 
 # Objective
 
 To become familiar with the Linux filesystem hierarchy, understand the purpose of important system directories, and practice basic navigation commands.
 
----
+
 
 # Background
 
@@ -23,7 +23,7 @@ Understanding this hierarchy is one of the first essential skills for Linux admi
 
 This journal documents my first exploration of the Linux filesystem using Linux Mint 22.3 (Zena).
 
----
+
 
 # Lab Environment
 
@@ -35,7 +35,7 @@ This journal documents my first exploration of the Linux filesystem using Linux 
 | Terminal | Bash |
 | User | aminul |
 
----
+
 
 # Commands Used
 
@@ -51,24 +51,27 @@ This journal documents my first exploration of the Linux filesystem using Linux 
 | `ls /tmp` | View temporary directory |
 | `ls /usr/bin | head -30` | Display the first 30 executable programs |
 
----
 
-# Command Output
+
+# Command Examples & Output
 
 ## 1. Current Working Directory
 
 ```bash
 pwd
-**Output**
+
+Output
+
 /home/aminul
+
 The terminal starts inside my personal home directory.
 
-## 2. List Files
+2. List Files
 ls
 
 This displayed the files and folders inside my home directory.
 
-## 3. Long Listing
+3. Long Listing
 ls -l
 
 I observed information such as:
@@ -80,7 +83,7 @@ file size
 modification date
 filename
 
-## 4. Show Hidden Files
+4. Show Hidden Files
 ls -la
 
 This command displayed hidden files beginning with a dot (.), such as:
@@ -93,7 +96,7 @@ This command displayed hidden files beginning with a dot (.), such as:
 
 These hidden files store user-specific configuration settings.
 
-## 5. Root Directory
+5. Root Directory
 ls /
 
 Important directories included:
@@ -117,7 +120,7 @@ tmp
 usr
 var
 
-## 6. Configuration Directory
+6. Configuration Directory
 ls /etc
 
 This directory contained hundreds of system configuration files and subdirectories.
@@ -136,7 +139,7 @@ shadow
 ssh
 systemd
 
-## 7. System Logs
+7. System Logs
 ls /var/log
 
 I observed many log files such as:
@@ -148,19 +151,20 @@ dpkg.log
 kern.log
 syslog
 
-## 8. Temporary Directory
+8. Temporary Directory
 ls /tmp
 
 This directory stores temporary files created by applications and the operating system.
 
-## 9. Executable Programs
+9. Executable Programs
 ls /usr/bin | head -30
 
 The output showed the first thirty executable programs installed on the system.
 
 This demonstrates that Linux commands such as ls, cp, mv, grep, and many others are stored as executable files.
 
-## Observations
+## Observations & Findings
+
 Linux uses one unified directory tree beginning with /.
 Every file and directory has a specific purpose.
 Hidden configuration files begin with a period (.).
@@ -169,7 +173,8 @@ System logs are stored under /var/log.
 User applications and commands are mainly stored under /usr/bin.
 My personal files are stored inside /home/aminul.
 
-## Key Concepts Learned
+# Key Concepts Learned
+
 ## Root Directory (/)
 
 The top-most directory of the Linux filesystem.
@@ -202,7 +207,7 @@ Understanding the Linux filesystem is fundamental for cybersecurity because inve
 
 Examples include:
 
-**Directory	**Security Importance
+Directory	Security Importance
 /etc	Configuration files, user accounts, SSH settings
 /var/log	Authentication logs, system events, forensic evidence
 /home	User documents, SSH keys, browser data
@@ -219,49 +224,49 @@ System auditing
 Digital forensics
 Security hardening
 
-## Screenshots
+# Screenshots
 
 ### 1. Current Working Directory (`pwd`)
 
 ![Current Working Directory](images/journal01_pwd.png)
 
----
+
 
 ### 2. Home Directory Listing (`ls -la`)
 
 ![Home Directory Listing](images/journal01_ls_la.png)
 
----
+
 
 ### 3. Root Directory (`ls /`)
 
 ![Root Directory](images/journal01_ls_root.png)
 
----
+
 
 ### 4. Configuration Directory (`ls /etc`)
 
 ![Configuration Directory](images/journal01_ls_etc.png)
 
----
+
 
 ### 5. System Logs (`ls /var/log`)
 
 ![System Logs](images/journal01_ls_var_log.png)
 
----
+
 
 ### 6. Temporary Directory (`ls /tmp`)
 
 ![Temporary Directory](images/journal01_ls_tmp.png)
 
----
+
 
 ### 7. Executable Programs (`ls /usr/bin | head -30`)
 
 ![usr/bin Directory](images/journal01_ls_usr_bin.png)
 
-## Reflection
+# Reflection
 
 This journal helped me understand that Linux organizes the operating system into a logical directory hierarchy rather than using multiple drive letters.
 
@@ -269,7 +274,7 @@ I also learned that many important cybersecurity artifacts—including configura
 
 Instead of memorizing commands, I am beginning to understand how the Linux operating system is structured internally.
 
-## Skills Practiced
+# Skills Developed
 
 Basic terminal navigation
 Exploring the Linux filesystem
