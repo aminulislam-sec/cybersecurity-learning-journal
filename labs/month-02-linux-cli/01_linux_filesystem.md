@@ -288,28 +288,28 @@ Instead of memorizing commands, I am beginning to understand how the Linux opera
 
 # Skills Developed
 
-Basic terminal navigation
-Exploring the Linux filesystem
-Reading command output
-Understanding hidden files
-Identifying important system directories
-Recognizing security-relevant locations
+* Basic terminal navigation
+* Exploring the Linux filesystem
+* Reading command output
+* Understanding hidden files
+* Identifying important system directories
+* Recognizing security-relevant locations
 
 ## Next Step
 
 Journal 02 will focus on filesystem navigation using commands such as:
 
-cd
-pwd
-Relative paths
-Absolute paths
-. (current directory)
-.. (parent directory)
-~ (home directory)
+* cd
+* pwd
+* Relative paths
+* Absolute paths
+* . (current directory)
+* .. (parent directory)
+* ~ (home directory)
 
 ## References
-Linux Mint Documentation
-GNU Core Utilities Documentation
-Filesystem Hierarchy Standard (FHS)
-man ls
-man pwd
+* Linux Mint Documentation
+* GNU Core Utilities Documentation
+* Filesystem Hierarchy Standard (FHS)
+* man ls
+* man pwd
