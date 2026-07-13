@@ -174,13 +174,13 @@ This demonstrates that Linux commands such as ls, cp, mv, grep, and many others 
 
 # Observations & Findings
 
-Linux uses one unified directory tree beginning with /.
-Every file and directory has a specific purpose.
-Hidden configuration files begin with a period (.).
-The /etc directory stores configuration files rather than executable programs.
-System logs are stored under /var/log.
-User applications and commands are mainly stored under /usr/bin.
-My personal files are stored inside /home/aminul.
+* Linux uses one unified directory tree beginning with /.
+* Every file and directory has a specific purpose.
+* Hidden configuration files begin with a period (.).
+* The /etc directory stores configuration files rather than executable programs.
+* System logs are stored under /var/log.
+* User applications and commands are mainly stored under /usr/bin.
+* My personal files are stored inside /home/aminul.
 
 
 # Key Concepts Learned
@@ -218,22 +218,24 @@ Understanding the Linux filesystem is fundamental for cybersecurity because inve
 
 Examples include:
 
-Directory	Security Importance
-/etc	Configuration files, user accounts, SSH settings
-/var/log	Authentication logs, system events, forensic evidence
-/home	User documents, SSH keys, browser data
-/tmp	Temporary files often abused by malware
-/usr/bin	Installed executables and utilities
-/root	Root user's private home directory
-/proc	Live information about running processes
+| Directory  | Security Importance                                   |
+| ---------- | ----------------------------------------------------- |
+| `/etc`     | Configuration files, user accounts, SSH settings      |
+| `/var/log` | Authentication logs, system events, forensic evidence |
+| `/home`    | User documents, SSH keys, browser data                |
+| `/tmp`     | Temporary files often abused by malware               |
+| `/usr/bin` | Installed executables and utilities                   |
+| `/root`    | Root user's private home directory                    |
+| `/proc`    | Live information about running processes              |
+
 
 Knowing these locations is essential during:
 
-Incident response
-Malware analysis
-System auditing
-Digital forensics
-Security hardening
+* Incident response
+* Malware analysis
+* System auditing
+* Digital forensics
+* Security hardening
 
 
 # Screenshots
@@ -242,7 +244,6 @@ Security hardening
 
 ![Current Working Directory](images/journal01_pwd.png)
 
-![Test](images/journal01_pwd.png)
 
 ### 2. Home Directory Listing (`ls -la`)
 
