@@ -39,16 +39,16 @@ This journal documents my first exploration of the Linux filesystem using Linux 
 
 # Commands Used
 
-| Command | Purpose |
-|----------|---------|
-| `pwd` | Display current working directory |
-| `ls` | List directory contents |
-| `ls -l` | Long listing format |
-| `ls -la` | Show all files including hidden files |
-| `ls /` | View root filesystem |
-| `ls /etc` | List configuration directory |
-| `ls /var/log` | View log directory |
-| `ls /tmp` | View temporary directory |
+| Command              | Purpose |
+|----------------------|---------|
+| `pwd`                | Display current working directory |
+| `ls`                 | List directory contents |
+| `ls -l`              | Long listing format |
+| `ls -la`             | Show all files including hidden files |
+| `ls /`               | View root filesystem |
+| `ls /etc`            | List configuration directory |
+| `ls /var/log`        | View log directory |
+| `ls /tmp`            | View temporary directory |
 | `ls /usr/bin | head -30` | Display the first 30 executable programs |
 
 
@@ -59,7 +59,6 @@ This journal documents my first exploration of the Linux filesystem using Linux 
 
 ```bash
 pwd
-
 Output
 
 /home/aminul
@@ -67,11 +66,13 @@ Output
 The terminal starts inside my personal home directory.
 
 2. List Files
+
 ls
 
 This displayed the files and folders inside my home directory.
 
 3. Long Listing
+
 ls -l
 
 I observed information such as:
@@ -84,6 +85,7 @@ modification date
 filename
 
 4. Show Hidden Files
+
 ls -la
 
 This command displayed hidden files beginning with a dot (.), such as:
@@ -97,6 +99,7 @@ This command displayed hidden files beginning with a dot (.), such as:
 These hidden files store user-specific configuration settings.
 
 5. Root Directory
+
 ls /
 
 Important directories included:
@@ -121,6 +124,7 @@ usr
 var
 
 6. Configuration Directory
+
 ls /etc
 
 This directory contained hundreds of system configuration files and subdirectories.
@@ -140,6 +144,7 @@ ssh
 systemd
 
 7. System Logs
+
 ls /var/log
 
 I observed many log files such as:
@@ -152,18 +157,21 @@ kern.log
 syslog
 
 8. Temporary Directory
+
 ls /tmp
 
 This directory stores temporary files created by applications and the operating system.
 
 9. Executable Programs
+
 ls /usr/bin | head -30
 
 The output showed the first thirty executable programs installed on the system.
 
 This demonstrates that Linux commands such as ls, cp, mv, grep, and many others are stored as executable files.
 
-## Observations & Findings
+
+# Observations & Findings
 
 Linux uses one unified directory tree beginning with /.
 Every file and directory has a specific purpose.
@@ -172,6 +180,7 @@ The /etc directory stores configuration files rather than executable programs.
 System logs are stored under /var/log.
 User applications and commands are mainly stored under /usr/bin.
 My personal files are stored inside /home/aminul.
+
 
 # Key Concepts Learned
 
@@ -201,7 +210,8 @@ Stores temporary data created by users and applications.
 
 Contains most user commands and executable programs.
 
-## Security Perspective
+
+# Security Perspective
 
 Understanding the Linux filesystem is fundamental for cybersecurity because investigators, administrators, and attackers all rely on knowing where important information is stored.
 
@@ -224,13 +234,14 @@ System auditing
 Digital forensics
 Security hardening
 
+
 # Screenshots
 
 ### 1. Current Working Directory (`pwd`)
 
 ![Current Working Directory](images/journal01_pwd.png)
 
-
+![Test](images/journal01_pwd.png)
 
 ### 2. Home Directory Listing (`ls -la`)
 
