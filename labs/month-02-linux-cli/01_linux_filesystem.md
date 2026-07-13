@@ -59,6 +59,7 @@ This journal documents my first exploration of the Linux filesystem using Linux 
 
 ```bash
 pwd
+```
 Output
 
 /home/aminul
