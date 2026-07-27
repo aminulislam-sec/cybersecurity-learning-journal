@@ -42,22 +42,22 @@ cd
 
 ## Command Examples & Output
 1. Creating the working directory
-
+  ```bash
   mkdir Linux-labs
   cd Linux-labs
   pwd
-
+  ```
 Output
 
   /home/aminul/3-CyberLab/Security Writer Course/Linux-labs
 
 ## 2. Creating multiple directories
 
-  mkdir documents scripts logs evidence memory pcaps reports
+  `mkdir documents scripts logs evidence memory pcaps reports`
 
 Checking the result
 
-  ls
+  `ls`
 
 Output
 
@@ -72,14 +72,14 @@ Output
 
 ## 3. Creating files
 
-  touch notes.txt
+  ```touch notes.txt
   touch report.txt
   touch evidence.txt
   touch todo.txt
-
+  ```
 Listing files
 
-  ls
+   `ls`
 
 Output
 
@@ -90,11 +90,11 @@ Output
 
 ## 4. Writing text into a file
 
-  echo "I have entered the 3-CyberLab..." > notes.txt
+  `echo "I have entered the 3-CyberLab..." > notes.txt`
 
 Reading the file
 
-  cat notes.txt
+  `cat notes.txt`
 
 Output
 
@@ -102,7 +102,7 @@ Output
 
 ## 5. Appending text
 
-  echo "Now, I'd like to add some more text..." >> notes.txt
+  `echo "Now, I'd like to add some more text..." >> notes.txt`
 
 Output
 
@@ -112,11 +112,11 @@ The new text appeared below the original content.
 
 ## 6. Copying a file
 
-  cp notes.txt backup.txt
+  `cp notes.txt backup.txt`
 
 Checking
 
-  ls
+  `ls`
 
 Output
 
@@ -128,7 +128,7 @@ Output
 
 ## 7. Renaming a file
 
-  mv backup.txt notes_backup.txt
+  `mv backup.txt notes_backup.txt`
 
 Output
 
@@ -138,7 +138,7 @@ Now, when I verified with 'ls', backup.txt file is no more there. Instead, it's 
 
 ## 8. Moving a file
   
-  mv report.txt ../logs/
+  `mv report.txt ../logs/`
 
 Verification
 
@@ -150,11 +150,11 @@ Output
 
 ## 9. Removing a file
 
-  rm todo.txt
+  `rm todo.txt`
 
 Checking
 
-  ls
+ `ls`
 
 Output
 
@@ -164,11 +164,11 @@ Output
 
 ## 10. Creating and removing an empty directory
 
-  mkdir empty
+  `mkdir empty`
 
 Removing it
 
-  rmdir empty
+  `rmdir empty`
 
 No output indicates success.
 
@@ -176,7 +176,7 @@ No output indicates success.
 
 Beginning of file
 
-  head notes.txt
+  `head notes.txt`
 
 Output
 
@@ -188,7 +188,7 @@ Output
 
 End of file
 
-  tail notes.txt
+  `tail notes.txt`
 
 Output
 
@@ -200,13 +200,13 @@ Output
 
 ## 12. Viewing a file interactively
 
-  less notes.txt
+  `less notes.txt`
 
 The file opened in the pager. I exited by pressing *q*.
 
 ## 13. Editing a file
 
-  nano notes.txt
+  `nano notes.txt`
 
 I edited the file, saved the changes (Ctrl + O, Enter) and exited using Ctrl + X.
 
@@ -261,7 +261,7 @@ Good file management is a foundational skill for system administrators, security
 
 I typed:
 
-  ~/3-CyberLab/Security Writer Course/Linux-labs
+  `~/3-CyberLab/Security Writer Course/Linux-labs`
 
 Result
 
@@ -271,7 +271,7 @@ Lesson:
 
 Directory names containing spaces must either be escaped:
 
-  Security\ Writer\ Course
+  `Security\ Writer\ Course`
 
 or enclosed in quotation marks.
 
@@ -279,7 +279,7 @@ or enclosed in quotation marks.
 
 I entered:
 
-  ~/3-CyberLab/Security\ Writer\ Course/Linux-labs
+  `~/3-CyberLab/Security\ Writer\ Course/Linux-labs`
 
 Output
 
@@ -291,7 +291,7 @@ Directories cannot be executed. To enter a directory, use the *cd* command.
 
 ### 3. Typing cd..
 
-  cd..
+  cd..`
 
 Output
 
@@ -303,11 +303,11 @@ A space is required.
 
 Correct command:
 
-  cd ..
+  `cd ..`
 
 ### 4. Attempting to remove a non-empty directory
 
-  rmdir documents
+  `rmdir documents`
 
 Output
 
@@ -319,7 +319,7 @@ rmdir only removes empty directories.
 
 ### 5. Trying to recreate an existing directory
 
-  mkdir documents
+  `mkdir documents
 
 Output
 
