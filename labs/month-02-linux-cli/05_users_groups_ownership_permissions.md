@@ -658,9 +658,9 @@ That distinction matters.
 
 ---
 
-### 2. Identity, Permissions, and Connection
+### 2. Identity and Permissions
 
-![Identity, Permissions, and Connection](images/journal05_identity_permissions_connection).png)
+![Identity and Permissions](images/journal05_identity_permissions_connection.png)
 
 ---
 
