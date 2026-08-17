@@ -666,7 +666,7 @@ That distinction matters.
 
 ### 3. User Password and Account Information
 
-![User Password and User Information](images/journal05_password_user.png)
+![User Passwd and User Information](images/journal05_passwd_user.png)
 
 ---
 
