@@ -905,3 +905,167 @@ Because:
 
 These answers are simple, but I now have actual terminal evidence behind them.
 
+## 26. Command Summary
+
+| Command               | What I learned                           |
+| --------------------- | ---------------------------------------- |
+| `ps`                  | Show a snapshot of processes             |
+| `ps aux`              | Show a broad process list                |
+| `ps -u "$USER"`       | Show processes associated with my user   |
+| `ps -u "$USER" -f`    | Show detailed information including PPID |
+| `ps -p PID`           | Inspect a specific PID                   |
+| `pgrep process`       | Find PIDs by process name                |
+| `pgrep -a process`    | Find PIDs and show the command           |
+| `pstree -p`           | Show parent-child process relationships  |
+| `top`                 | Monitor processes and resources live     |
+| `kill PID`            | Send the default termination signal      |
+| `kill -9 PID`         | Send SIGKILL; use only when appropriate  |
+| `jobs`                | Show shell background jobs               |
+| `echo $$`             | Show the current Bash PID                |
+| `cat /proc/$$/status` | Inspect current process status           |
+| `ls /proc`            | See process-related kernel information   |
+
+## 27. My Mental Model
+
+I want to remember the lesson like this:
+```
+PROGRAM
+   ↓
+starts running
+   ↓
+PROCESS
+   ↓
+gets a PID
+   ↓
+has an owner
+   ↓
+has a parent (PPID)
+   ↓
+uses CPU / memory
+   ↓
+can be observed
+   ↓
+can be investigated
+   ↓
+can receive signals
+```
+And the commands fit into the model:
+```
+ps       → What is running?
+pgrep    → Where is the process I'm looking for?
+pstree   → Who started whom?
+top      → What is happening right now?
+/proc    → What does the kernel know about it?
+kill     → Send a signal to it.
+```
+## 28. Skills Developed
+
+By completing this lesson, I practiced:
+
+- Linux process identification
+- PID and PPID interpretation
+- process ownership analysis
+- process snapshots
+- live process monitoring
+- parent-child analysis
+- process searching
+- background jobs
+- process termination
+- /proc inspection
+- basic resource analysis
+- security-oriented process investigation
+- reading terminal output as evidence
+
+## 29. Reflection
+
+The biggest lesson for me was not a command.
+
+It was a change in perspective.
+
+Before this lesson, I thought of my computer mainly as applications:
+
+Firefox.
+
+Terminal.
+
+File manager.
+
+Music.
+
+Documents.
+
+Now I can see something underneath all of that.
+
+Processes.
+
+Hundreds of them.
+
+Programs talking to the operating system, using memory, consuming CPU, creating children, running under different users, and sometimes disappearing when their work is finished.
+
+The computer is much more alive than it looks from the desktop.
+
+And cybersecurity begins with understanding what is actually happening underneath that desktop.
+
+I also learned that I do not need to memorize everything immediately.
+
+I can ask the machine.
+
+I can run:
+```Bash
+ps
+```
+I can inspect:
+```Bash
+PID
+PPID
+USER
+STAT
+COMMAND
+```
+I can investigate:
+```Bash
+/proc
+```
+And I can read the evidence.
+
+That is a much better learning strategy than trying to memorize an ocean of commands.
+
+## 30. Next Step
+
+Lesson 7 will move from individual processes to services.
+
+I will learn:
+```Bash
+systemctl
+```
+and investigate:
+
+- what a Linux service is
+- active vs inactive
+- enabled vs disabled
+- failed services
+- service status
+- running services
+- service management
+- security implications of unnecessary services
+- the connection between services, processes and listening ports
+
+This connects directly back to my Month 1 networking work, where I used `netstat` to see listening services.
+
+Now I will learn what is actually managing those services.
+
+## References
+
+- Linux `ps` manual: `man ps`
+- Linux `top` manual: `man top`
+- Linux `kill` manual: `man kill`
+- Linux `/proc` documentation: `man proc`
+- Linux `/proc/<pid>/status: man proc_pid_status`
+- My own Linux Mint 22.3 terminal output from this lesson
+
+The Linux `ps` documentation defines PID and PPID fields and provides process-selection options such as `-p` and `--ppid`.
+
+The Linux `kill` documentation confirms that `kill` sends signals to processes and that the default signal is TERM; SIGKILL should not be the first choice when normal termination is possible.
+
+The `/proc/<pid>/status` documentation confirms that the interface exposes process state, PID, PPID, UID, GID and other process information.
+
