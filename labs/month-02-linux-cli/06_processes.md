@@ -174,7 +174,7 @@ PPID = 10449
 ```
 So my Bash shell was started by the terminal process.
 
-This is much more useful than simply memorising the definition of PPID.
+This is much more useful than simply memorizing the definition of PPID.
 
 I actually saw the relationship.
 
@@ -271,4 +271,112 @@ This is an important distinction.
 Security analysis is not about panicking whenever I see root.
 
 It is about understanding what I am seeing.
+
+## 7. My `ps aux` Observation
+
+My actual `ps aux` output showed many kernel and system processes.
+
+For example:
+```
+root 1 0.0 0.1 ... /sbin/init
+root 2 0.0 0.0 ... [kthreadd]
+root 14 0.0 0.0 ... [ksoftirqd/0]
+root 44 0.0 0.0 ... [kauditd]
+```
+It also showed normal desktop processes belonging to me:
+```
+aminul 1739 ... cinnamon --replace
+aminul 2149 ... /usr/lib/firefox/firefox
+aminul 10460 ... bash
+```
+The process list looked enormous at first.
+
+That was actually useful.
+
+I realized that my Linux desktop is not "one program".
+
+It is a large collection of programs working together.
+
+## 8. `ps -u "$USER"` — My Processes
+
+I used:
+```Bash
+ps -u "$USER"
+```
+This displayed processes associated with my user account.
+
+I saw processes such as:
+```
+systemd
+pipewire
+wireplumber
+dbus-daemon
+cinnamon
+nemo
+firefox-bin
+gnome-terminal
+bash
+```
+This helped me understand that logging into a graphical Linux desktop starts many background processes.
+
+It also showed me something important:
+
+> A process does not have to correspond to a window I can see.
+
+Many processes work quietly in the background.
+
+## 9. `ps -u "$USER" -f` — Add Parent Information
+
+I then used:
+```Bash
+ps -u "$USER" -f
+```
+The `-f` option gave me more detailed information.
+
+The most important new column for me was:
+```
+PPID
+```
+For example:
+```
+aminul 10460 10449 ... bash
+```
+This means:
+```
+PID  = 10460
+PPID = 10449
+```
+So process 10449 is the parent of process 10460.
+
+This made the parent-child concept much easier to understand.
+
+## 10. A Safe Process for Practice
+
+Instead of experimenting with important system processes, I created my own harmless process:
+```Bash
+sleep 300 &
+```
+The `&` tells Bash to run the command in the background.
+
+My output was:
+```
+[1] 15809
+```
+The number:
+```
+15809
+```
+was the PID.
+
+I later repeated the experiment and created:
+```
+[2] 15920
+[3] 16053
+[4] 16093
+```
+These were all instances of:
+```
+sleep 300
+```
+This was a safe way to learn process management without touching an important system process.
 
