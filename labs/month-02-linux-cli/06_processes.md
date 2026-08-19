@@ -1124,8 +1124,8 @@ Now I will learn what is actually managing those services.
 - Linux `/proc/<pid>/status: man proc_pid_status`
 - My own Linux Mint 22.3 terminal output from this lesson
 
-## References
 
+Cites
 1. Linux `ps` manual — process selection, PID, PPID and process information.
 2. Linux `kill` manual — signals, SIGTERM and SIGKILL.
 3. Linux `/proc/<pid>/status` manual — process state, PID, PPID, UID, GID and related information.
