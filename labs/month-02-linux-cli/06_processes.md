@@ -755,7 +755,134 @@ This was a good reminder:
 
 Instead of assuming something is wrong, I should investigate why the output looks that way.
 
-## 23. Mistakes I Made — Learning Moments
+## 23. Security Perspective
+
+Processes are extremely important in cybersecurity.
+
+After an attacker gains access to a machine, they may execute programs or establish processes that help them maintain access, perform actions, or consume resources.
+
+Therefore, process analysis can help answer questions such as:
+```
+What is running?
+
+Who owns it?
+
+What is its PID?
+
+Who started it?
+
+What command launched it?
+
+How much CPU/memory is it using?
+
+Does the process make sense for this machine?
+
+Is it running with excessive privileges?
+
+Does it have unexpected child processes?
+```
+The process owner matters because a process running as root has much greater privileges than an ordinary user process.
+
+Parent-child relationships also matter.
+
+For example, an unexpected child process launched by a network-facing service could deserve investigation.
+
+However:
+
+> An unusual process is not automatically malicious.
+
+A security analyst needs context, baseline knowledge, command-line details, parent process information, ownership, network connections, persistence mechanisms, and other evidence before reaching a conclusion.
+
+That is why process analysis is an investigation skill, not simply a command-memorization exercise.
+
+## 24. My Five Answers
+
+I tested myself before finishing the lesson.
+
+### 1. What is a process?
+
+A process is:
+
+> A program that is currently running.
+
+### 2. What is a PID?
+
+A PID is:
+
+> The unique number given to a running process.
+
+### 3. What does PPID tell me?
+
+PPID tells me:
+
+> Which process started another process.
+
+### 4. Which command can I use to watch processes live?
+```Bash
+top
+```
+### 5. Why are processes important in cybersecurity?
+
+Because:
+
+> They can help me find suspicious or harmful programs running on a system.
+
+These answers are simple, but I now have actual terminal evidence behind them.
+
+## 25. Command Summary
+
+| Command               | What I learned                           |
+| --------------------- | ---------------------------------------- |
+| `ps`                  | Show a snapshot of processes             |
+| `ps aux`              | Show a broad process list                |
+| `ps -u "$USER"`       | Show processes associated with my user   |
+| `ps -u "$USER" -f`    | Show detailed information including PPID |
+| `ps -p PID`           | Inspect a specific PID                   |
+| `pgrep process`       | Find PIDs by process name                |
+| `pgrep -a process`    | Find PIDs and show the command           |
+| `pstree -p`           | Show parent-child process relationships  |
+| `top`                 | Monitor processes and resources live     |
+| `kill PID`            | Send the default termination signal      |
+| `kill -9 PID`         | Send SIGKILL; use only when appropriate  |
+| `jobs`                | Show shell background jobs               |
+| `echo $$`             | Show the current Bash PID                |
+| `cat /proc/$$/status` | Inspect current process status           |
+| `ls /proc`            | See process-related kernel information   |
+
+## 26. My Mental Model
+
+I want to remember the lesson like this:
+```
+PROGRAM
+   ↓
+starts running
+   ↓
+PROCESS
+   ↓
+gets a PID
+   ↓
+has an owner
+   ↓
+has a parent (PPID)
+   ↓
+uses CPU / memory
+   ↓
+can be observed
+   ↓
+can be investigated
+   ↓
+can receive signals
+```
+And the commands fit into the model:
+```
+ps       → What is running?
+pgrep    → Where is the process I'm looking for?
+pstree   → Who started whom?
+top      → What is happening right now?
+/proc    → What does the kernel know about it?
+kill     → Send a signal to it.
+```
+## 27. Mistakes I Made — Learning Moments
 
 I made several useful mistakes during this lesson.
 
@@ -831,134 +958,68 @@ SIGHUP
 SIGSTOP
 SIGCONT
 ```
-### 24. Security Perspective
 
-Processes are extremely important in cybersecurity.
+## 28. Screenshots
 
-After an attacker gains access to a machine, they may execute programs or establish processes that help them maintain access, perform actions, or consume resources.
+### 1. Process Environment
 
-Therefore, process analysis can help answer questions such as:
-```
-What is running?
+![Process Environment](images/journal06_environment.png)
 
-Who owns it?
+---
 
-What is its PID?
+### 2. Search for Processes with `pgrep`
 
-Who started it?
+![Search for Processes with pgrep](images/journal06_pgrep.png)
 
-What command launched it?
+---
 
-How much CPU/memory is it using?
+### 3. Process Lifecycle
 
-Does the process make sense for this machine?
+![Process Lifecycle](images/journal06_process_lifecycle.png)
 
-Is it running with excessive privileges?
+---
 
-Does it have unexpected child processes?
-```
-The process owner matters because a process running as root has much greater privileges than an ordinary user process.
+### 4. Process Relationships
 
-Parent-child relationships also matter.
+![Process Relationships](images/journal06_process_relationship.png)
 
-For example, an unexpected child process launched by a network-facing service could deserve investigation.
+---
 
-However:
+### 5. View Process Status
 
-> An unusual process is not automatically malicious.
+![Process Status](images/journal06_proc_status.png)
 
-A security analyst needs context, baseline knowledge, command-line details, parent process information, ownership, network connections, persistence mechanisms, and other evidence before reaching a conclusion.
+---
 
-That is why process analysis is an investigation skill, not simply a command-memorization exercise.
+### 6. View All Running Processes (`ps aux`)
 
-### 25. My Five Answers
+![All Running Processes](images/journal06_ps_aux.png)
 
-I tested myself before finishing the lesson.
+---
 
-### 1. What is a process?
+### 7. Basic Process Information (`ps`)
 
-A process is:
+![Basic Process Information](images/journal06_ps_basic.png)
 
-> A program that is currently running.
+---
 
-### 2. What is a PID?
+### 8. View the Process Tree (`pstree`)
 
-A PID is:
+![Process Tree](images/journal06_pstree.png)
 
-> The unique number given to a running process.
+---
 
-### 3. What does PPID tell me?
+### 9. Monitor Processes in Real Time (`top`)
 
-PPID tells me:
+![Real-Time Process Monitoring](images/journal06_top.png)
 
-> Which process started another process.
+---
 
-### 4. Which command can I use to watch processes live?
-```Bash
-top
-```
-### 5. Why are processes important in cybersecurity?
+### 10. CPU Usage Test with `top`
 
-Because:
+![CPU Usage Test](images/journal06_top_cpu_test.png)
 
-> They can help me find suspicious or harmful programs running on a system.
-
-These answers are simple, but I now have actual terminal evidence behind them.
-
-## 26. Command Summary
-
-| Command               | What I learned                           |
-| --------------------- | ---------------------------------------- |
-| `ps`                  | Show a snapshot of processes             |
-| `ps aux`              | Show a broad process list                |
-| `ps -u "$USER"`       | Show processes associated with my user   |
-| `ps -u "$USER" -f`    | Show detailed information including PPID |
-| `ps -p PID`           | Inspect a specific PID                   |
-| `pgrep process`       | Find PIDs by process name                |
-| `pgrep -a process`    | Find PIDs and show the command           |
-| `pstree -p`           | Show parent-child process relationships  |
-| `top`                 | Monitor processes and resources live     |
-| `kill PID`            | Send the default termination signal      |
-| `kill -9 PID`         | Send SIGKILL; use only when appropriate  |
-| `jobs`                | Show shell background jobs               |
-| `echo $$`             | Show the current Bash PID                |
-| `cat /proc/$$/status` | Inspect current process status           |
-| `ls /proc`            | See process-related kernel information   |
-
-## 27. My Mental Model
-
-I want to remember the lesson like this:
-```
-PROGRAM
-   ↓
-starts running
-   ↓
-PROCESS
-   ↓
-gets a PID
-   ↓
-has an owner
-   ↓
-has a parent (PPID)
-   ↓
-uses CPU / memory
-   ↓
-can be observed
-   ↓
-can be investigated
-   ↓
-can receive signals
-```
-And the commands fit into the model:
-```
-ps       → What is running?
-pgrep    → Where is the process I'm looking for?
-pstree   → Who started whom?
-top      → What is happening right now?
-/proc    → What does the kernel know about it?
-kill     → Send a signal to it.
-```
-## 28. Skills Developed
+## 29. Skills Developed
 
 By completing this lesson, I practiced:
 
@@ -976,7 +1037,7 @@ By completing this lesson, I practiced:
 - security-oriented process investigation
 - reading terminal output as evidence
 
-## 29. Reflection
+## 30. Reflection
 
 The biggest lesson for me was not a command.
 
@@ -1030,7 +1091,7 @@ And I can read the evidence.
 
 That is a much better learning strategy than trying to memorize an ocean of commands.
 
-## 30. Next Step
+## 31. Next Step
 
 Lesson 7 will move from individual processes to services.
 
