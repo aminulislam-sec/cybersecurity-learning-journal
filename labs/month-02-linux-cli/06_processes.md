@@ -178,3 +178,97 @@ This is much more useful than simply memorising the definition of PPID.
 
 I actually saw the relationship.
 
+## 5. `ps` — A Snapshot of Processes
+
+The simplest command I used was:
+```Bash
+ps
+```
+It showed processes associated with my current terminal session.
+
+For a much larger view, I used:
+```Bash
+ps aux
+```
+This produced a large list of running processes.
+
+The important columns were:
+```
+USER
+PID
+%CPU
+%MEM
+VSZ
+RSS
+TTY
+STAT
+START
+TIME
+COMMAND
+```
+I learned to read them as questions.
+
+### USER
+
+Who owns the process?
+
+For example:
+```
+root
+aminul
+avahi
+systemd+
+message+
+```
+### PID
+
+What is the process ID?
+
+### %CPU
+
+How much CPU the process is currently using.
+
+### %MEM
+
+How much memory it is using.
+
+### STAT
+
+What state the process is in.
+
+### COMMAND
+
+What program is actually running.
+
+## 6. Why the USER Column Matters
+
+One of the most important security observations from `ps aux` was that processes run under different accounts.
+
+For example, my output contained processes owned by:
+```
+root
+aminul
+avahi
+message+
+systemd+
+polkitd
+cups-br+
+```
+A process running as root deserves particular attention because root has extensive privileges.
+
+That does NOT mean:
+
+> "Every root process is malicious."
+
+Linux itself needs many root-owned processes.
+
+The correct security question is:
+
+> "Is this process expected, and why is it running with this level of privilege?"
+
+This is an important distinction.
+
+Security analysis is not about panicking whenever I see root.
+
+It is about understanding what I am seeing.
+
