@@ -136,3 +136,45 @@ Bash
 ```
 The command I used to look at processes became a process itself.
 
+## 4. PPID — Parent Process ID
+
+PID tells me:
+
+> "Who am I?"
+
+PPID tells me:
+
+> "Who started me?"
+
+I used:
+```Bash
+ps -u "$USER" -f
+```
+The output contained:
+```
+UID       PID    PPID   C STIME TTY   TIME CMD
+aminul    1363      1   0 13:40 ?     00:00:00 /usr/lib/systemd/systemd --user
+aminul    1364   1363   0 13:40 ?     00:00:00 (sd-pam)
+...
+aminul   10449   1363   0 16:28 ?     00:00:13 /usr/libexec/gnome-terminal...
+aminul   10460  10449   0 16:28 pts/0 00:00:00 bash
+```
+This allowed me to see relationships such as:
+```text
+systemd
+   │
+   └── gnome-terminal
+          │
+          └── bash
+```
+My Bash process had:
+```
+PID  = 10460
+PPID = 10449
+```
+So my Bash shell was started by the terminal process.
+
+This is much more useful than simply memorising the definition of PPID.
+
+I actually saw the relationship.
+
