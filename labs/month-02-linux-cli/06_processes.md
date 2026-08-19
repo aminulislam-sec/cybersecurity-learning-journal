@@ -1124,9 +1124,8 @@ Now I will learn what is actually managing those services.
 - Linux `/proc/<pid>/status: man proc_pid_status`
 - My own Linux Mint 22.3 terminal output from this lesson
 
-The Linux `ps` documentation defines PID and PPID fields and provides process-selection options such as `-p` and `--ppid`.
+## References
 
-The Linux `kill` documentation confirms that `kill` sends signals to processes and that the default signal is TERM; SIGKILL should not be the first choice when normal termination is possible.
-
-The `/proc/<pid>/status` documentation confirms that the interface exposes process state, PID, PPID, UID, GID and other process information.
-
+1. Linux `ps` manual — process selection, PID, PPID and process information.
+2. Linux `kill` manual — signals, SIGTERM and SIGKILL.
+3. Linux `/proc/<pid>/status` manual — process state, PID, PPID, UID, GID and related information.
