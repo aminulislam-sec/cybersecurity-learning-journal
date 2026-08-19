@@ -695,3 +695,213 @@ pgrep -a sleep
 ```
 showed that the process had terminated.
 
+## 21. `/proc` — The Kernel's Process Window
+
+I also explored:
+```Bash
+ls /proc
+```
+I saw many numeric directories such as:
+```
+1
+1363
+1739
+2149
+2419
+10460
+...
+```
+These numbers correspond to process IDs.
+
+For example:
+```
+/proc/10460
+```
+represented my Bash process.
+
+I examined it with:
+```Bash
+cat /proc/$$/status
+```
+and saw:
+```
+Name:   bash
+State:  S (sleeping)
+Pid:    10460
+PPid:   10449
+Uid:    1000  1000  1000  1000
+Gid:    1000  1000  1000  1000
+Groups: 4 24 27 30 46 100 105 125 1000
+```
+This was one of the strongest pieces of evidence from the entire lesson.
+
+The process information I was learning from `ps` was also represented through `/proc`.
+
+## 22. A Small Discovery About My Shell
+
+I ran:
+```Bash
+cat /proc/$$/cmdline
+```
+The output appeared as:
+```
+bash
+```
+with the shell prompt immediately following it because command-line arguments in `/proc/.../cmdline` are separated by null characters rather than normal newlines.
+
+This was a good reminder:
+
+> Terminal output does not always look the way I expect.
+
+Instead of assuming something is wrong, I should investigate why the output looks that way.
+
+## 23. Mistakes I Made — Learning Moments
+
+I made several useful mistakes during this lesson.
+
+### Mistake 1 — Using a fake username
+
+I ran:
+```Bash
+ps -u user
+```
+The system responded:
+```
+error: user name does not exist
+```
+This happened because user was an example placeholder, not my actual username.
+
+I corrected it with:
+```Bash
+ps -u $USER
+```
+This worked.
+
+### Lesson
+
+Never blindly copy an example when it contains a placeholder.
+
+Before running a command, ask:
+
+> "Is this word supposed to be literal, or should I replace it?"
+
+### Mistake 2 — Trying to kill a job that was already finished
+
+I ran:
+```Bash
+kill %1
+```
+and received:
+```
+bash: kill: %1: no such job
+```
+The reason was that the job had already finished.
+
+I had previously seen:
+```
+[1]- Done sleep 300
+```
+So there was no longer a job numbered `%1`.
+
+### Lesson
+
+An error message often contains the explanation.
+
+Instead of being frustrated by:
+```
+no such job
+```
+I should ask:
+
+> "What does the shell mean by job?"
+
+This is part of becoming comfortable with the terminal.
+
+### Mistake 3 — Expecting `kill` to mean `"erase"`
+
+I initially thought of kill as simply deleting a process.
+
+Now I understand that it sends a signal.
+
+That distinction becomes important when learning:
+```
+SIGTERM
+SIGKILL
+SIGHUP
+SIGSTOP
+SIGCONT
+```
+### 24. Security Perspective
+
+Processes are extremely important in cybersecurity.
+
+After an attacker gains access to a machine, they may execute programs or establish processes that help them maintain access, perform actions, or consume resources.
+
+Therefore, process analysis can help answer questions such as:
+```
+What is running?
+
+Who owns it?
+
+What is its PID?
+
+Who started it?
+
+What command launched it?
+
+How much CPU/memory is it using?
+
+Does the process make sense for this machine?
+
+Is it running with excessive privileges?
+
+Does it have unexpected child processes?
+```
+The process owner matters because a process running as root has much greater privileges than an ordinary user process.
+
+Parent-child relationships also matter.
+
+For example, an unexpected child process launched by a network-facing service could deserve investigation.
+
+However:
+
+> An unusual process is not automatically malicious.
+
+A security analyst needs context, baseline knowledge, command-line details, parent process information, ownership, network connections, persistence mechanisms, and other evidence before reaching a conclusion.
+
+That is why process analysis is an investigation skill, not simply a command-memorization exercise.
+
+### 25. My Five Answers
+
+I tested myself before finishing the lesson.
+
+### 1. What is a process?
+
+A process is:
+
+> A program that is currently running.
+
+### 2. What is a PID?
+
+A PID is:
+
+> The unique number given to a running process.
+
+### 3. What does PPID tell me?
+
+PPID tells me:
+
+> Which process started another process.
+
+### 4. Which command can I use to watch processes live?
+```Bash
+top
+```
+### 5. Why are processes important in cybersecurity?
+
+Because:
+
+> They can help me find suspicious or harmful programs running on a system.
+
+These answers are simple, but I now have actual terminal evidence behind them.
+
