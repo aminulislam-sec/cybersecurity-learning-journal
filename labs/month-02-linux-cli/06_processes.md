@@ -380,3 +380,318 @@ sleep 300
 ```
 This was a safe way to learn process management without touching an important system process.
 
+## 11. Finding a Process with `pgrep`
+
+I used:
+```Bash
+pgrep sleep
+```
+Output included:
+```
+15809
+```
+Then:
+```Bash
+pgrep -a sleep
+```
+gave:
+```
+15809 sleep 300
+```
+Later I had several:
+
+15920 sleep 300
+16053 sleep 300
+16093 sleep 300
+
+This was easier to read than searching through the enormous output of `ps aux`.
+
+## 12. `ps -p` — Inspect One PID
+
+When I had:
+```
+PID = 33109
+```
+I used:
+```Bash
+ps -p 33109
+```
+Output:
+```
+    PID TTY          TIME CMD
+  33109 pts/0    00:00:00 sleep
+```
+This was a useful workflow:
+```text
+Find process
+     ↓
+Get PID
+     ↓
+Inspect PID
+     ↓
+Decide whether action is needed
+```
+This is much closer to how I want to think about process analysis.
+
+## 13. `pstree` — See the Family Tree
+
+I used:
+```Bash
+pstree -p
+```
+The output began with:
+```
+systemd(1)
+```
+and showed many branches underneath it.
+
+For example, I could see relationships such as:
+```text
+systemd(1)
+ ├── NetworkManager(992)
+ ├── ModemManager(1021)
+ ├── lightdm(1132)
+ │    └── ...
+ ├── systemd(1363)
+ │    └── gnome-terminal(10449)
+ │         └── bash(10460)
+ │              └── pstree(...)
+```
+This made PPID much easier to understand visually.
+
+A process tree is basically a family tree for running programs.
+
+## 14. A Useful Difference
+
+I learned:
+```
+ps
+```
+is excellent for a snapshot.
+```
+pstree
+```
+is excellent for relationships.
+```
+top
+```
+is excellent for watching activity.
+```
+pgrep
+```
+is excellent for finding a process.
+```
+kill
+```
+is used to send a signal to a process (to terminate).
+
+Together, these commands form a small process-investigation toolkit.
+
+## 15. `top` — Watching Processes Live
+
+I ran:
+```Bash
+top
+```
+My actual output showed:
+```
+top - 19:35:14 up  5:56,  1 user,  load average: 0.46, 0.66, 0.68
+
+
+Tasks: 267 total,   1 running, 266 sleeping,   0 stopped,   0 zombie
+
+
+%Cpu(s): 28.9 us,  5.8 sy,  0.0 ni, 63.6 id, ...
+
+
+MiB Mem : 7823.7 total, 739.3 free, 4284.3 used, 3707.4 buff/cache
+
+
+MiB Swap: 2048.0 total, 2047.9 free, 0.1 used.
+```
+This was different from `ps`.
+
+Instead of giving me only a snapshot, `top` continuously updated the information.
+
+## 16. What I Learned from `top`
+
+At that moment my machine showed:
+```
+267 total tasks
+1 running
+266 sleeping
+0 stopped
+0 zombie
+```
+I also saw CPU and memory information.
+
+Some processes were using considerably more CPU than others.
+
+For example:
+```
+PID    USER     %CPU   %MEM
+2149   aminul   49.0    6.7
+2419   aminul   46.4    7.8
+1739   aminul   21.4    2.7
+```
+I learned an important security lesson:
+
+> High CPU usage is an observation, not automatically evidence of malware.
+
+A legitimate browser, compiler, video application, or other program can use a lot of CPU.
+
+But an unexpected process consuming enormous resources is something worth investigating.
+
+## 17. Creating High CPU Activity Safely
+
+I deliberately created a CPU-heavy test process:
+```Bash
+yes > /dev/null &
+```
+My shell reported:
+```
+[1] 18456
+```
+Then I ran `top`.
+
+The process appeared as:
+```
+18456 aminul ... R 100.0 0.0 ...
+```
+The CPU usage was:
+```
+100.0%
+```
+This was an excellent demonstration.
+
+I had just created something that looked suspicious from a resource-monitoring perspective.
+
+But I knew exactly why it existed.
+
+That is an important security principle:
+
+> Context matters.
+
+## 18. Stopping the High-CPU Process
+
+I stopped my test process with:
+```Bash
+kill 18456
+```
+Then I checked:
+```Bash
+ps -p 18456
+```
+The shell showed that the background job had been terminated:
+```
+[1]+  Terminated              yes > /dev/null
+```
+I also checked:
+```Bash
+pgrep -a yes
+```
+and received no process entry.
+
+The process was gone.
+
+## 19. What `kill` Actually Means
+
+Before this lesson, I thought:
+```
+kill = destroy process
+```
+Now I understand that `kill` actually sends a signal to a process.
+
+For example:
+```
+kill 33109
+```
+normally sends `SIGTERM`.
+
+`SIGTERM` asks the process to terminate.
+
+If necessary, another signal such as:
+```Bash
+kill -9 PID
+```
+sends `SIGKILL`.
+
+`SIGKILL` is much more forceful and does not give the process the opportunity to perform normal cleanup. The Linux `kill(1)` documentation recommends using the normal TERM signal before KILL where possible.
+
+So my preferred mental model is:
+```text
+kill
+  ↓
+send a signal
+  ↓
+process receives it
+  ↓
+process may terminate
+```
+
+## 20. My Safe `kill` Experiment
+
+I created:
+```Bash
+sleep 300 &
+```
+Output:
+```
+[1] 33109
+```
+I confirmed it:
+```Bash
+pgrep -a sleep
+```
+Output:
+```
+33109 sleep 300
+```
+I inspected it:
+```Bash
+ps -p 33109
+```
+Output:
+```
+    PID TTY          TIME CMD
+  33109 pts/0    00:00:00 sleep
+```
+I then inspected its `/proc` information:
+```Bash
+cat /proc/33109/status
+```
+Among the information shown was:
+```
+Name:   sleep
+State:  S (sleeping)
+Pid:    33109
+PPid:   10460
+Uid:    1000  1000  1000  1000
+Gid:    1000  1000  1000  1000
+```
+This connected several concepts together:
+```
+Process
+  ↓
+PID
+  ↓
+PPID
+  ↓
+Owner
+  ↓
+State
+  ↓
+/proc information
+```
+The Linux `/proc/<pid>/status` interface exposes human-readable process status information, including PID, PPID, state, UID, GID and other details.
+
+Finally:
+```Bash
+kill 33109
+```
+and:
+```Bash
+pgrep -a sleep
+```
+showed that the process had terminated.
+
