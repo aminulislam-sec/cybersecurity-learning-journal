@@ -139,7 +139,7 @@ bluetooth.service
 The terminal was using a pager/display mode, so the normal columns were not immediately obvious.
 
 I then used:
-```Bash
+```
 systemctl list-units --type=service --no-pager
 ```
 This was much easier to read.
@@ -161,6 +161,99 @@ casper-md5check.service loaded failed failed
 ```
 This taught me an important documentation lesson:
 
-> When command output is being displayed through a pager, --no-pager can make captured terminal evidence much easier to read.
+> When command output is being displayed through a pager, `--no-pager` can make captured terminal evidence much easier to read.
+
+## Understanding `LOAD`, `ACTIVE`, and `SUB`
+
+The output contained:
+```
+LOAD
+ACTIVE
+SUB
+```
+The system itself explained these fields:
+```
+LOAD   → Reflects whether the unit definition was properly loaded.
+ACTIVE → The high-level unit activation state.
+SUB    → The low-level unit activation state.
+```
+I learned not to treat these three words as the same thing.
+
+For example:
+```
+loaded active running
+```
+means the service definition is loaded and the service is currently running.
+
+But I also saw:
+```
+loaded active exited
+```
+For example:
+```
+apparmor.service
+alsa-restore.service
+console-setup.service
+```
+That was an important lesson.
+
+`active` **does not always mean** `running`.
+
+Some services perform a task and then exit successfully.
+
+## Lesson 4 — A Real Failed Service
+
+One of the most valuable discoveries in this lesson was:
+```
+casper-md5check.service
+```
+It appeared as:
+```
+loaded failed failed
+```
+I investigated it instead of ignoring it.
+
+I ran:
+```Bash
+systemctl status casper-md5check.service
+```
+The result showed:
+```
+Active: failed (Result: exit-code)
+```
+and:
+```
+Main PID: 1213 (code=exited, status=1/FAILURE)
+```
+The log showed:
+```
+.fopen md5_file: No such file...
+Checking integrity...
+Failed to start casper-md5check.service
+```
+This was a very useful cybersecurity lesson.
+
+A failed service is not automatically evidence of malware.
+
+It is **an observation that requires investigation**.
+
+A security-minded person should ask:
+
+1. What service failed?
+2. When did it fail?
+3. Why did it fail?
+4. What executable did it try to run?
+5. What does the journal say?
+6. Is the failure expected on this machine?
+
+I should never jump from:
+
+> "service failed"
+
+to:
+
+> "my computer has been hacked."
+
+Evidence first. Conclusions second.
 
 
