@@ -604,18 +604,323 @@ Security is:
 My Bluetooth service provided an excellent example.
 
 The service definition included restrictions such as:
-
+```
 ProtectHome=true
 ProtectSystem=strict
 PrivateTmp=true
 ProtectKernelTunables=true
 ProtectControlGroups=true
-
+```
 These are examples of systemd service hardening mechanisms. systemd supports settings such as ProtectHome=, ProtectSystem= and PrivateTmp= to restrict what a service can access.
 
 That means the service is not simply:
 
-"Run this program as root."
+> "Run this program as root."
 
 There can be additional restrictions around what the program is allowed to do.
+
+## Lesson 11 — Service Dependencies
+
+I ran:
+```Bash
+systemctl list-dependencies bluetooth.service
+```
+The output showed dependencies such as:
+```
+bluetooth.service
+├─dbus.socket
+├─system.slice
+└─sysinit.target
+   ├─apparmor.service
+   ├─blk-availability.service
+   ├─keyboard-setup.service
+   ...
+```
+This taught me that services do not necessarily live alone.
+
+They can depend on other units.
+
+This matters when troubleshooting.
+
+If Service A is not working, the problem may actually be somewhere in its dependency chain.
+
+## Lesson 12 — Service Logs
+
+I used:
+```Bash
+journalctl -u bluetooth.service -n 20 --no-pager
+```
+The journal showed Bluetooth activity such as audio endpoint registrations and unregistrations.
+
+I also tried:
+```Bash
+journalctl -u bluetooth.service -f
+```
+The -f option allowed me to watch new log entries as they appeared.
+
+I stopped following the log with:
+```
+Ctrl+C
+```
+This connected three important pieces:
+```
+Service
+   ↓
+Process
+   ↓
+Logs
+```
+For troubleshooting and security investigations, this is extremely powerful.
+
+## Lesson 13 — Creating My Own systemd User Service
+
+This was my favorite practical exercise.
+
+I created:
+```Bash
+mkdir -p ~/.config/systemd/user
+```
+Then created:
+```
+~/.config/systemd/user/lesson7-demo.service
+```
+I reloaded the user systemd manager:
+```Bash
+systemctl --user daemon-reload
+```
+Then started my service:
+```Bash
+systemctl --user start lesson7-demo.service
+```
+The service became:
+```
+Active: active (running)
+Main PID: 15270 (sleep)
+```
+The actual process was:
+```
+/usr/bin/sleep infinity
+```
+I verified the PID:
+```Bash
+systemctl --user show lesson7-demo.service -p MainPID
+```
+Output:
+```
+MainPID=15270
+```
+Then:
+```Bash
+ps -p 15270 -f
+```
+showed:
+```
+aminul  15270  1367  ...  /usr/bin/sleep infinity
+```
+This was a perfect demonstration of:
+```
+service
+   ↓
+Main PID
+   ↓
+process
+```
+
+## Lesson 14 — Stop and Restart
+
+I stopped my service:
+```Bash
+systemctl --user stop lesson7-demo.service
+```
+Then checked:
+```Bash
+systemctl --user status lesson7-demo.service
+```
+It showed:
+```
+Active: inactive (dead)
+```
+I started it again and then restarted it:
+```Bash
+systemctl --user start lesson7-demo.service
+systemctl --user restart lesson7-demo.service
+```
+The service became active again with a new Main PID:
+```
+Main PID: 15841 (sleep)
+```
+This gave me a practical demonstration that restarting a service can result in a new process instance.
+
+### A Useful Surprise — `static`
+
+I checked:
+```Bash
+systemctl --user is-enabled lesson7-demo.service
+```
+and received:
+```
+static
+```
+I then tried:
+```Bash
+systemctl --user enable lesson7-demo.service
+```
+systemd explained that the unit had no [Install] configuration such as:
+```
+WantedBy=
+RequiredBy=
+Alias=
+```
+and therefore was not designed to be enabled or disabled in the normal way.
+
+This was another excellent learning moment:
+
+> `static` **is not the same thing as** `disabled`.
+
+It means the unit has no normal installation configuration for enable/disable.
+
+### Cleaning Up
+
+After completing the experiment, I stopped the service:
+```Bash
+systemctl --user stop lesson7-demo.service
+```
+Then removed the service file:
+```Bash
+rm ~/.config/systemd/user/lesson7-demo.service
+```
+and reloaded systemd:
+```
+systemctl --user daemon-reload
+```
+Finally:
+```Bash
+systemctl --user status lesson7-demo.service
+```
+returned:
+```
+Unit lesson7-demo.service could not be found.
+```
+This was important because a good lab should clean up after itself.
+
+## Lesson 15 — Investigating a Nonexistent Service
+
+I deliberately checked:
+```Bash
+systemctl status suspicious.service
+```
+The system replied:
+```
+Unit suspicious.service could not be found.
+```
+Then:
+```Bash
+systemctl cat suspicious.service
+```
+returned:
+```
+No files found for suspicious.service.
+```
+And:
+```
+systemctl show suspicious.service -p MainPID
+```
+returned:
+```
+MainPID=0
+```
+Finally:
+```
+journalctl -u suspicious.service
+```
+returned:
+```
+-- No entries --
+```
+This was a useful investigation exercise.
+
+If I encounter an unfamiliar service name during security work, I should verify whether it actually exists before assuming it is malicious.
+
+### My Investigation Workflow
+
+After this lesson, I can think about service investigation like this:
+```
+1. What services are running?
+        ↓
+2. Is the service active?
+        ↓
+3. Is it enabled?
+        ↓
+4. What process owns it?
+        ↓
+5. What is its PID?
+        ↓
+6. What executable is running?
+        ↓
+7. What does its unit file say?
+        ↓
+8. What permissions/restrictions does it have?
+        ↓
+9. What services does it depend on?
+        ↓
+10. What do its logs say?
+```
+That is much more useful to me than simply memorizing commands.
+
+## Security Perspective
+
+From a cybersecurity perspective, services matter because they can represent persistent or continuously available functionality.
+
+During an investigation, I would want to know:
+```
+What is running?
+        ↓
+Who started it?
+        ↓
+What executable does it run?
+        ↓
+Under which user?
+        ↓
+What files can it access?
+        ↓
+Does it listen on a network port?
+        ↓
+Does it automatically start?
+        ↓
+Does it restart after failure?
+        ↓
+What does it log?
+```
+An unexpected service deserves investigation.
+
+But unexpected does not automatically mean malicious.
+
+That distinction is important.
+
+For example, my own system showed:
+```Bash
+casper-md5check.service
+```
+as failed.
+
+The correct response was not panic.
+
+The correct response was:
+```
+observe → investigate → understand → document
+Evidence vs Assumption
+```
+One of the biggest lessons from this practice was learning to separate evidence from interpretation.
+```
+Evidence
+bluetooth.service
+Active: active (running)
+Main PID: 868
+
+Evidence
+casper-md5check.service
+Active: failed
+```
+
+## Screenshots
 
