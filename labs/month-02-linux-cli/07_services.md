@@ -135,7 +135,7 @@ apparmor.service
 avahi-daemon.service
 bluetooth.service
 ...
-
+```
 The terminal was using a pager/display mode, so the normal columns were not immediately obvious.
 
 I then used:
@@ -256,4 +256,366 @@ to:
 
 Evidence first. Conclusions second.
 
+## Lesson 5 — Seeing Only Running Services
+
+I used:
+```Bash
+systemctl list-units --type=service --state=running
+```
+My system returned services including:
+```
+accounts-daemon.service
+avahi-daemon.service
+bluetooth.service
+cron.service
+cups.service
+dbus.service
+fwupd.service
+NetworkManager.service
+polkit.service
+rsyslog.service
+systemd-journald.service
+...
+```
+This is useful because a huge list can be overwhelming.
+
+Instead of asking:
+
+> "What services exist?"
+
+I can ask:
+
+> "What services are running right now?"
+
+That is much more useful during an initial investigation.
+
+## Lesson 6 — `list-units` **vs** `list-unit-files`
+
+This was one of the most important distinctions I learned.
+
+I ran:
+```Bash
+systemctl list-unit-files --type=service
+```
+This showed entries such as:
+```
+accounts-daemon.service    enabled
+bluetooth.service          enabled
+brltty.service             disabled
+alsa-utils.service         masked
+```
+The difference is:
+ 
+`list-units`
+ 
+Shows units currently loaded into systemd's runtime view.
+
+`list-unit-files`
+
+Shows installed service unit files and their configured states.
+
+This means:
+```
+running now
+```
+and:
+```
+enabled to start automatically
+```
+are **not the same question**.
+
+## Lesson 7 — enabled Does Not Mean running
+
+I checked Bluetooth:
+```Bash
+systemctl is-active bluetooth.service
+```
+Output:
+```
+active
+```
+Then:
+```Bash
+systemctl is-enabled bluetooth.service
+```
+Output:
+```
+enabled
+```
+So in this case:
+```
+active
++
+enabled
+```
+means:
+
+> Bluetooth is currently running and configured to be enabled.
+
+But these are two different properties.
+
+A service can be:
+```
+active but disabled
+```
+or:
+```
+inactive but enabled
+```
+depending on how it was started and configured.
+
+## Lesson 8 — Inspecting a Service
+
+I investigated:
+```Bash
+systemctl status bluetooth.service
+```
+The output gave me much more than just "running":
+```
+Loaded: loaded
+Active: active (running)
+Main PID: 868
+Tasks: 1
+Memory: 3.2M
+CPU: 128ms
+CGroup: /system.slice/bluetooth.service
+```
+This was almost like a small profile of the service.
+
+Most importantly:
+```
+Main PID: 868
+```
+connected the service to the process I studied in Lesson 6.
+
+I verified it:
+```Bash
+ps -p 868 -f
+```
+Output:
+```
+UID   PID   PPID   C   STIME   TTY   TIME   CMD
+root  868   1      0   Aug24   ?     ...    /usr/libexec/bluetooth/bluet...
+```
+This gave me a very useful mental model:
+```
+systemd
+   ↓
+bluetooth.service
+   ↓
+Main PID 868
+   ↓
+bluetoothd
+```
+
+## Lesson 9 — Inspecting Service Properties
+
+I used:
+```Bash
+systemctl show bluetooth.service
+```
+Among the properties I saw:
+```
+Type=dbus
+Restart=on-failure
+TimeoutStartUSec=1min 30s
+TimeoutStopUSec=10s
+MainPID=868
+```
+I also learned that individual properties can be queried:
+```Bash
+systemctl show bluetooth.service -p Id
+```
+Output:
+```
+Id=bluetooth.service
+```
+Then:
+```Bash
+systemctl show bluetooth.service -p ActiveState
+```
+Output:
+```
+ActiveState=active
+```
+And:
+```Bash
+systemctl show bluetooth.service -p SubState
+```
+Output:
+```
+SubState=running
+```
+Finally:
+```Bash
+systemctl show bluetooth.service -p MainPID
+```
+gave:
+```
+MainPID=868
+```
+This is extremely useful for automation because scripts can retrieve one exact property rather than parsing a large human-readable status screen.
+
+## Mistakes I Made — Learning Moments
+### Mistake 1 — Forgetting the space before -p
+
+I accidentally typed:
+```Bash
+systemctl show bluetooth.service-p MainPID
+```
+instead of:
+```Bash
+systemctl show bluetooth.service -p MainPID
+```
+This caused the command to behave differently.
+
+### Lesson
+
+Command syntax matters.
+
+> A tiny missing space can completely change how the shell interprets the command.
+
+### Mistake 2 — Using a placeholder literally
+
+I ran:
+```Bash
+systemctl show SERVICE -p MainPID
+```
+The output was:
+```
+MainPID=0
+```
+The problem was simple:
+
+`SERVICE` was meant as a placeholder.
+
+It was **not** the actual service name.
+
+The correct command was:
+```Bash
+systemctl show bluetooth -p MainPID
+```
+which returned:
+```
+MainPID=868
+```
+### Lesson
+
+When following technical documentation, I need to distinguish between:
+
+`SERVICE`
+
+meaning "replace this with the real service name"
+
+and:
+```
+bluetooth.service
+```
+meaning an actual unit name.
+
+### Mistake 3 — Trying to treat a service name as a command
+
+Earlier, I made a similar conceptual mistake with services:
+```
+accounts-daemon.service
+```
+A `.service` name is not normally something I type directly into Bash as a command.
+
+I should use:
+```Bash
+systemctl status accounts-daemon.service
+```
+or:
+```Bash
+systemctl start accounts-daemon.service
+```
+The service is managed through systemd.
+
+## Lesson 10 — Looking at the Actual Service Definition
+
+I used:
+```Bash
+systemctl cat bluetooth
+```
+This showed the unit definition:
+```
+[Unit]
+Description=Bluetooth service
+Documentation=man:bluetoothd(8)
+ConditionPathIsDirectory=/sys/class/bluetooth
+
+[Service]
+Type=dbus
+BusName=org.bluez
+ExecStart=/usr/libexec/bluetooth/bluetoothd
+...
+Restart=on-failure
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+LimitNPROC=1
+```
+Then I found several security-related settings:
+```
+ProtectHome=true
+ProtectSystem=strict
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+```
+This was one of the most important security discoveries of the lesson.
+
+## Security Perspective — Services Are Part of the Attack Surface
+
+A service may have:
+
+- a network connection
+- a listening port
+- a privileged process
+- access to files
+- access to hardware
+- automatic startup
+- restart behavior
+
+Therefore:
+
+> Every unnecessary service can potentially increase the attack surface.
+
+But that does **not** mean I should randomly disable services.
+
+A service might be required by:
+
+- networking
+- graphics
+- printing
+- Bluetooth
+- security controls
+- system logging
+- hardware management
+
+Security is not:
+
+> "Turn everything off."
+
+Security is:
+
+> **Understand what is running, why it is running, what it can access, and whether it needs to be exposed.**
+
+
+
+My Bluetooth service provided an excellent example.
+
+The service definition included restrictions such as:
+
+ProtectHome=true
+ProtectSystem=strict
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+
+These are examples of systemd service hardening mechanisms. systemd supports settings such as ProtectHome=, ProtectSystem= and PrivateTmp= to restrict what a service can access.
+
+That means the service is not simply:
+
+"Run this program as root."
+
+There can be additional restrictions around what the program is allowed to do.
 
