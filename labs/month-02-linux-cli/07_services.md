@@ -924,3 +924,220 @@ Active: failed
 
 ## Screenshots
 
+### 1. Check User Account Status
+
+![User Account Status](images/journal07_accounts_status.png)
+
+---
+
+### 2. Check Whether a Service Is Active and Enabled
+
+![Service Active and Enabled](images/journal07_active_enabled.png)
+
+---
+
+### 3. Check Bluetooth Service Status
+
+![Bluetooth Service Status](images/journal07_bluetooth_status.png)
+
+---
+
+### 4. Check Casper Service Status
+
+![Casper Service Status](images/journal07_casper_status.png)
+
+---
+
+### 5. Demonstrate a Service Process
+
+![Service Process](images/journal07_demo_service_process.png)
+
+---
+
+### 6. Demonstrate a Running Service
+
+![Running Service](images/journal07_demo_service_running.png)
+
+---
+
+### 7. Demonstrate a Stopped Service
+
+![Stopped Service](images/journal07_demo_service_stopped.png)
+
+---
+
+### 8. Find Failed Services
+
+![Failed Service Units](images/journal07_failed_units.png)
+
+---
+
+### 9. List Running Services
+
+![Running Services](images/journal07_running_services.png)
+
+---
+
+### 10. Examine a Service Definition
+
+![Service Definition](images/journal07_service_definition.png)
+
+---
+
+### 11. View Service Logs
+
+![Service Logs](images/journal07_service_logs.png)
+
+---
+
+### 12. List Services
+
+![Service List](images/journal07_services_list.png)
+
+---
+
+### 13. Connect a Service to Its Process
+
+![Service to Process](images/journal07_service_to_process.png)
+
+---
+
+### 14. Check the `systemd` Version
+
+![systemd Version](images/journal07_systemd_version.png)
+
+
+## Skills Developed
+
+By completing Lesson 7, I practiced:
+
+- systemd fundamentals
+- service discovery
+- service status investigation
+- service-state interpretation
+- systemctl
+- systemctl --user
+- service enablement concepts
+- service failure investigation
+- service configuration inspection
+- process-to-service mapping
+- PID investigation
+- dependency analysis
+- journal/log investigation
+- basic systemd service creation
+- service lifecycle management
+- basic service hardening awareness
+- evidence-based troubleshooting
+- security-oriented documentation
+
+## Related Commands
+
+The commands I should remember from this lesson are:
+```Bash
+systemctl --version
+
+systemctl list-units --type=service
+
+systemctl list-units --type=service --no-pager
+
+systemctl list-units --type=service --state=running
+
+systemctl status SERVICE
+
+systemctl is-active SERVICE
+
+systemctl is-enabled SERVICE
+
+systemctl list-unit-files --type=service
+
+systemctl --failed
+
+systemctl show SERVICE
+
+systemctl show SERVICE -p MainPID
+
+systemctl cat SERVICE
+
+systemctl list-dependencies SERVICE
+
+journalctl -u SERVICE
+
+journalctl -u SERVICE -n 20 --no-pager
+
+journalctl -u SERVICE -f
+
+ps -p PID -f
+```
+For user services:
+```Bash
+systemctl --user status SERVICE
+
+systemctl --user start SERVICE
+
+systemctl --user stop SERVICE
+
+systemctl --user restart SERVICE
+
+systemctl --user daemon-reload
+```
+
+## Reflection
+
+Before this lesson, I mostly thought of a service as something running quietly in the background.
+
+Now I see a much bigger picture.
+
+A service has an identity.
+
+It can have:
+```
+a unit file
+a state
+a PID
+a process
+dependencies
+logs
+permissions
+restart rules
+security restrictions
+```
+And systemd gives me tools to investigate all of these.
+
+The most valuable connection for me was:
+```
+Service
+   ↓
+Main PID
+   ↓
+Process
+   ↓
+Executable
+   ↓
+Logs
+```
+This connects directly with what I learned in Lesson 6.
+
+I am beginning to see Linux not as a collection of commands, but as a system where different pieces are connected.
+
+## Next Step
+
+Lesson 7 taught me how Linux manages services.
+
+The next logical step is to understand **how software is installed, updated, removed, and tracked on Linux**.
+
+That takes me to:
+
+> **Lesson 8 — Linux Package Management**
+
+I will learn how package managers work, how to search for software, install and remove packages, inspect package information, and understand the security implications of software installation.
+
+## References
+
+For the practical evidence in this journal, I used my own Linux Mint terminal output from this lesson.
+
+For systemd command behavior and available `systemctl` operations, I also checked the systemd project documentation/source.
+
+For service hardening concepts such as `ProtectHome=`, `ProtectSystem=` and `PrivateTmp=`, I referred to systemd's documentation/history.
+
+
+
