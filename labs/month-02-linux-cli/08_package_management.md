@@ -20,7 +20,7 @@ My goals were to understand:
 - how to recognize and document package-management errors
 - why package management is also a security issue
 
----
+
 
 ## Background
 
@@ -36,7 +36,7 @@ On a Debian/Ubuntu/Linux Mint system, APT provides the high-level package-manage
 
 This distinction became much clearer during this lesson.
 
----
+
 
 ## Environment
 
@@ -69,7 +69,7 @@ $ apt --version
 apt 2.8.3 (amd64) (Mint wrapper)
 ```
 
----
+
 
 # 1. Understanding Package Sources
 
@@ -145,7 +145,7 @@ So I should always ask:
 4. What signing/key mechanism is configured?
 5. Is there a safer official package available?
 
----
+
 
 # 2. Refreshing the Package Index
 
@@ -187,7 +187,7 @@ apt upgrade
 
 That distinction is important.
 
----
+
 
 # 3. Checking Available Upgrades
 
@@ -219,7 +219,7 @@ python3-pil
 
 The important lesson was that package availability can change after repository information is refreshed.
 
----
+
 
 # 4. Searching for Packages
 
@@ -270,7 +270,7 @@ but also:
 
 > "Here is what to look for in the output."
 
----
+
 
 # 5. Inspecting a Package Before Installing It
 
@@ -320,7 +320,7 @@ apt-cache depends htop
 
 This helped me understand that installing one program may involve several other packages.
 
----
+
 
 # 6. Installing `htop`
 
@@ -406,7 +406,7 @@ gave:
 htop 3.3.0
 ```
 
----
+
 
 # 7. A Very Important Real-World Problem I Encountered
 
@@ -470,7 +470,7 @@ when the evidence actually says:
 
 That is a much more accurate diagnosis.
 
----
+
 
 # 8. Checking Package Status
 
@@ -519,7 +519,7 @@ This answers a very practical question:
 
 > Which package installed this file?
 
----
+
 
 # 9. Counting Installed Packages
 
@@ -541,7 +541,7 @@ This number is not a universal Linux number. It is evidence from my own machine.
 
 That distinction is important in technical writing.
 
----
+
 
 # 10. Manual vs Automatic Packages
 
@@ -591,7 +591,7 @@ Dependencies installed because another package needs them can be marked as autom
 
 That relationship helps APT identify packages that may no longer be needed.
 
----
+
 
 # 11. Removing `htop`
 
@@ -630,7 +630,7 @@ This reinforced another lesson:
 
 So I should always read the complete transaction output instead of looking only for the package name I typed.
 
----
+
 
 # 12. `apt clean` and the Package Cache
 
@@ -674,7 +674,7 @@ It did not uninstall my installed software.
 
 I learned this by measuring the cache before and after.
 
----
+
 
 # 13. `apt autoclean`
 
@@ -694,7 +694,7 @@ Reading state information... Done
 
 The important difference is that `autoclean` is more selective than `clean`; it removes cached package files that are no longer useful/downloadable.
 
----
+
 
 # 14. Checking Package Versions and Candidates
 
@@ -740,7 +740,7 @@ This taught me that `apt policy` is useful for answering questions such as:
 
 > Which repository provides that candidate?
 
----
+
 
 # 15. Searching Installed Packages with Pipes
 
@@ -771,7 +771,7 @@ This was another connection between Linux CLI skills and cybersecurity.
 
 Instead of opening a graphical software manager and scrolling through thousands of packages, I could ask a precise question from the terminal.
 
----
+
 
 # 16. APT vs DPKG — The Mental Model I Want to Remember
 
@@ -797,7 +797,7 @@ APT is the higher-level interface I use for normal repository-based package mana
 
 `dpkg` is the lower-level Debian package-management tool and database.
 
----
+
 
 # 17. Troubleshooting Package Problems
 
@@ -842,7 +842,7 @@ So I learned an important troubleshooting principle:
 
 I need to consider the whole sequence of evidence.
 
----
+
 
 # Mistakes I Made (Learning Moments)
 
@@ -864,7 +864,7 @@ The lesson:
 
 I should inspect a directory with commands such as `ls`, `find`, `cat` for a file, or another appropriate tool.
 
----
+
 
 ### 2. I used `apt policy version`
 
@@ -884,7 +884,7 @@ The lesson:
 
 > Read the command syntax before pressing Enter.
 
----
+
 
 ### 3. I tried to read a file before creating it
 
@@ -922,7 +922,7 @@ The lesson:
 
 > Error messages are often instructions in disguise.
 
----
+
 
 ### 4. I encountered a real package-management failure
 
@@ -932,7 +932,7 @@ Instead of hiding the error, I documented it.
 
 This was probably the most valuable learning moment of the lesson.
 
----
+
 
 # Security Perspective
 
@@ -994,7 +994,7 @@ A professional habit is:
 
 > Read the proposed changes before confirming them.
 
----
+
 
 # Screenshots
 
@@ -1068,7 +1068,7 @@ The strongest evidence screenshots are the repository configuration, `apt update
 
 I should **not** publish passwords, tokens, private repository credentials, or other secrets if they ever appear in terminal output.
 
----
+
 
 # Skills Developed
 
@@ -1088,7 +1088,7 @@ I should **not** publish passwords, tokens, private repository credentials, or o
 - Linux software inventory
 - Security-oriented package management
 
----
+
 
 # Related Commands
 
@@ -1127,7 +1127,7 @@ wc
 du
 ```
 
----
+
 
 # Reflection
 
@@ -1155,7 +1155,7 @@ I do not want to write what I *think* happened.
 
 I want to document what the evidence actually shows.
 
----
+
 
 # Next Step
 
@@ -1174,7 +1174,7 @@ I will begin connecting individual commands together using:
 
 This is where Linux CLI knowledge starts turning into automation.
 
----
+
 
 # References
 
@@ -1187,7 +1187,7 @@ This is where Linux CLI knowledge starts turning into automation.
 - Debian APT documentation
 - Linux Mint documentation
 
----
+
 
 ## Evidence Note
 
