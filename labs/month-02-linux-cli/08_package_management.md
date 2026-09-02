@@ -1010,47 +1010,31 @@ and use the following GitHub-ready Markdown:
 
 ### 1. Linux Mint Environment
 
-![Linux Mint Environment](images/journal08_environment.png)
+![Linux Mint Environment](images/journal08_system_environment.png)
 
-### 2. APT Repository Configuration
-
-![APT Repository Configuration](images/journal08_sources.png)
-
-### 3. Refreshing Package Information with `apt update`
+### 2. Refreshing Package Information with `apt update`
 
 ![APT Update](images/journal08_apt_update.png)
 
-### 4. Checking Upgradable Packages
+### 3. Checking Upgradable Packages
 
 ![Upgradable Packages](images/journal08_upgradable.png)
 
-### 5. Searching for Packages
+### 4. Searching for Packages
 
-![APT Search](images/journal08_apt_search.png)
+![APT Search](images/journal08_package_search.png)
 
-### 6. Inspecting `htop` with `apt show`
+### 5. Inspecting `htop` with `apt show`
 
-![APT Show htop](images/journal08_apt_show.png)
+![APT Show htop](images/journal08_htop.png)
 
-### 7. Inspecting Dependencies
+### 6. Inspecting Dependencies
 
 ![Package Dependencies](images/journal08_dependencies.png)
 
-### 8. Installing `htop`
+### 7. Verifying Package Status
 
-![Installing htop](images/journal08_install_htop.png)
-
-### 9. Verifying Package Status
-
-![DPKG Package Status](images/journal08_dpkg_status.png)
-
-### 10. The DKMS / VirtualBox Error
-
-![DKMS VirtualBox Error](images/journal08_dkms_error.png)
-
-### 11. Cleaning the APT Cache
-
-![APT Cache Cleanup](images/journal08_apt_clean.png)
+![DPKG Package Status](images/journal08_dpkg_package_status.png)
 
 ### 12. Checking Package Policy
 
