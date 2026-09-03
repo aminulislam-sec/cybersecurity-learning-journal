@@ -21,7 +21,6 @@ My goals were to understand:
 - why package management is also a security issue
 
 
-
 ## Background
 
 Before this lesson, I mainly thought of software installation as:
@@ -35,7 +34,6 @@ A package is not just a program. It can also have dependencies, configuration fi
 On a Debian/Ubuntu/Linux Mint system, APT provides the high-level package-management interface, while `dpkg` is the lower-level Debian package database and package-management tool. APT can resolve dependencies and work with repositories; `dpkg` works directly with Debian packages and the local package database.
 
 This distinction became much clearer during this lesson.
-
 
 
 ## Environment
@@ -68,8 +66,6 @@ UBUNTU_CODENAME=noble
 $ apt --version
 apt 2.8.3 (amd64) (Mint wrapper)
 ```
-
-
 
 # 1. Understanding Package Sources
 
@@ -146,7 +142,6 @@ So I should always ask:
 5. Is there a safer official package available?
 
 
-
 # 2. Refreshing the Package Index
 
 I ran:
@@ -188,7 +183,6 @@ apt upgrade
 That distinction is important.
 
 
-
 # 3. Checking Available Upgrades
 
 I ran:
@@ -218,7 +212,6 @@ python3-pil
 ```
 
 The important lesson was that package availability can change after repository information is refreshed.
-
 
 
 # 4. Searching for Packages
@@ -271,7 +264,6 @@ but also:
 > "Here is what to look for in the output."
 
 
-
 # 5. Inspecting a Package Before Installing It
 
 I examined `htop` with:
@@ -319,7 +311,6 @@ apt-cache depends htop
 ```
 
 This helped me understand that installing one program may involve several other packages.
-
 
 
 # 6. Installing `htop`
@@ -406,8 +397,6 @@ gave:
 htop 3.3.0
 ```
 
-
-
 # 7. A Very Important Real-World Problem I Encountered
 
 The most valuable part of this lesson was not the successful installation.
@@ -471,7 +460,6 @@ when the evidence actually says:
 That is a much more accurate diagnosis.
 
 
-
 # 8. Checking Package Status
 
 I used:
@@ -520,7 +508,6 @@ This answers a very practical question:
 > Which package installed this file?
 
 
-
 # 9. Counting Installed Packages
 
 I ran:
@@ -540,7 +527,6 @@ So, according to this particular check at this particular time, my system had 20
 This number is not a universal Linux number. It is evidence from my own machine.
 
 That distinction is important in technical writing.
-
 
 
 # 10. Manual vs Automatic Packages
@@ -592,7 +578,6 @@ Dependencies installed because another package needs them can be marked as autom
 That relationship helps APT identify packages that may no longer be needed.
 
 
-
 # 11. Removing `htop`
 
 I tested the reverse operation:
@@ -629,7 +614,6 @@ This reinforced another lesson:
 > A package operation can trigger other package-management tasks.
 
 So I should always read the complete transaction output instead of looking only for the package name I typed.
-
 
 
 # 12. `apt clean` and the Package Cache
@@ -675,7 +659,6 @@ It did not uninstall my installed software.
 I learned this by measuring the cache before and after.
 
 
-
 # 13. `apt autoclean`
 
 I also ran:
@@ -693,7 +676,6 @@ Reading state information... Done
 ```
 
 The important difference is that `autoclean` is more selective than `clean`; it removes cached package files that are no longer useful/downloadable.
-
 
 
 # 14. Checking Package Versions and Candidates
@@ -741,7 +723,6 @@ This taught me that `apt policy` is useful for answering questions such as:
 > Which repository provides that candidate?
 
 
-
 # 15. Searching Installed Packages with Pipes
 
 I used:
@@ -772,7 +753,6 @@ This was another connection between Linux CLI skills and cybersecurity.
 Instead of opening a graphical software manager and scrolling through thousands of packages, I could ask a precise question from the terminal.
 
 
-
 # 16. APT vs DPKG — The Mental Model I Want to Remember
 
 The simplest model I now use is:
@@ -796,7 +776,6 @@ This is simplified, but it gives me a useful working model.
 APT is the higher-level interface I use for normal repository-based package management.
 
 `dpkg` is the lower-level Debian package-management tool and database.
-
 
 
 # 17. Troubleshooting Package Problems
@@ -843,7 +822,6 @@ So I learned an important troubleshooting principle:
 I need to consider the whole sequence of evidence.
 
 
-
 # Mistakes I Made (Learning Moments)
 
 ### 1. I typed a directory as if it were a command
@@ -865,7 +843,6 @@ The lesson:
 I should inspect a directory with commands such as `ls`, `find`, `cat` for a file, or another appropriate tool.
 
 
-
 ### 2. I used `apt policy version`
 
 ```bash
@@ -883,7 +860,6 @@ apt policy htop
 The lesson:
 
 > Read the command syntax before pressing Enter.
-
 
 
 ### 3. I tried to read a file before creating it
@@ -923,7 +899,6 @@ The lesson:
 > Error messages are often instructions in disguise.
 
 
-
 ### 4. I encountered a real package-management failure
 
 The VirtualBox DKMS module failed to build against several kernel versions.
@@ -931,7 +906,6 @@ The VirtualBox DKMS module failed to build against several kernel versions.
 Instead of hiding the error, I documented it.
 
 This was probably the most valuable learning moment of the lesson.
-
 
 
 # Security Perspective
@@ -995,63 +969,83 @@ A professional habit is:
 > Read the proposed changes before confirming them.
 
 
+## Screenshots
 
-# Screenshots
-
-I should keep screenshots that show evidence rather than screenshots that merely show a command being typed.
-
-If I captured the recommended screenshots, I can place them in:
-
-```text
-month-02-linux-cli/images/
-```
-
-and use the following GitHub-ready Markdown:
-
-### 1. Linux Mint Environment
-
-![Linux Mint Environment](images/journal08_system_environment.png)
-
-### 2. Refreshing Package Information with `apt update`
+### 1. Update Package Lists (`apt update`)
 
 ![APT Update](images/journal08_apt_update.png)
 
-### 3. Checking Upgradable Packages
+---
 
-![Upgradable Packages](images/journal08_upgradable.png)
-
-### 4. Searching for Packages
-
-![APT Search](images/journal08_package_search.png)
-
-### 5. Inspecting `htop` with `apt show`
-
-![APT Show htop](images/journal08_htop.png)
-
-### 6. Inspecting Dependencies
+### 2. Check Package Dependencies
 
 ![Package Dependencies](images/journal08_dependencies.png)
 
-### 7. Verifying Package Status
+---
+
+### 3. Check Package Status (`dpkg`)
 
 ![DPKG Package Status](images/journal08_dpkg_package_status.png)
 
-### 12. Checking Package Policy
+---
 
-![APT Package Policy](images/journal08_apt_policy.png)
+### 4. Check File Ownership (`dpkg`)
 
-### 13. Installed Package Search
+![Package File Ownership](images/journal08_file_package_owner.png)
 
-![Installed Package Search](images/journal08_package_search.png)
+---
 
-### 14. Troubleshooting Evidence
+### 5. Monitor System Processes with `htop`
 
-![Package Troubleshooting](images/journal08_troubleshooting.png)
+![HTOP Process Monitor](images/journal08_htop.png)
 
-The strongest evidence screenshots are the repository configuration, `apt update`, `apt show htop`, dependency information, successful package status, the DKMS/VirtualBox error, the cache before/after `apt clean`, and `apt policy htop`.
+---
 
-I should **not** publish passwords, tokens, private repository credentials, or other secrets if they ever appear in terminal output.
+### 6. Count Installed Packages
 
+![Installed Package Count](images/journal08_installed_package_count.png)
+
+---
+
+### 7. Verify Package Installation
+
+![Package Installation Verification](images/journal08_install_verify.png)
+
+---
+
+### 8. View Package Details
+
+![Package Details](images/journal08_package_details.png)
+
+---
+
+### 9. View Package Marks
+
+![Package Marks](images/journal08_package_marks.png)
+
+---
+
+### 10. View Package Policy
+
+![Package Policy](images/journal08_package_policy.png)
+
+---
+
+### 11. Search for Packages
+
+![Package Search](images/journal08_package_search.png)
+
+---
+
+### 12. Check System Environment
+
+![System Environment](images/journal08_system_environment.png)
+
+---
+
+### 13. Upgrade Packages
+
+![Package Upgrade](images/journal08_upgrade.png)
 
 
 # Skills Developed
@@ -1071,7 +1065,6 @@ I should **not** publish passwords, tokens, private repository credentials, or o
 - Evidence-based technical documentation
 - Linux software inventory
 - Security-oriented package management
-
 
 
 # Related Commands
@@ -1111,8 +1104,6 @@ wc
 du
 ```
 
-
-
 # Reflection
 
 This lesson changed the way I think about installing software.
@@ -1140,7 +1131,6 @@ I do not want to write what I *think* happened.
 I want to document what the evidence actually shows.
 
 
-
 # Next Step
 
 Lesson 08 taught me how Linux gets, installs, removes, verifies, and tracks software.
@@ -1159,8 +1149,7 @@ I will begin connecting individual commands together using:
 This is where Linux CLI knowledge starts turning into automation.
 
 
-
-# References
+## References
 
 - `man apt`
 - `man apt-get`
@@ -1170,7 +1159,6 @@ This is where Linux CLI knowledge starts turning into automation.
 - Ubuntu documentation on package management
 - Debian APT documentation
 - Linux Mint documentation
-
 
 
 ## Evidence Note
