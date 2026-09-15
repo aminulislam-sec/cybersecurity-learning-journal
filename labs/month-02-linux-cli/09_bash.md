@@ -773,7 +773,6 @@ and received:
 missing.sh does not exist.
 ```
 
----
 
 # 12. Checking Whether a Directory Exists
 
@@ -846,7 +845,6 @@ drwxr-x--- 20 aminul aminul 12288 Sep 14 22:03 /home/aminul
 
 So I could see that `$HOME` really was a directory.
 
----
 
 # 13. My First `for` Loop
 
@@ -932,8 +930,6 @@ do
 done
 ```
 
----
-
 # 14. A Practical File Loop
 
 After the corrected loop worked, I tested:
@@ -960,7 +956,6 @@ This showed me how a loop can work with files matching a pattern.
 
 It is a simple example of automation: instead of writing a separate command for every script, Bash can process the matching files one by one.
 
----
 
 # 15. File Location Matters
 
@@ -1042,7 +1037,6 @@ ls
 
 before assuming a file is missing.
 
----
 
 # 16. Output Redirection
 
@@ -1118,7 +1112,6 @@ So I learned:
 >>  = append
 ```
 
----
 
 # 17. Pipes
 
@@ -1165,7 +1158,6 @@ and got:
 output.txt
 ```
 
----
 
 # 18. Pipes and Processes
 
@@ -1188,7 +1180,6 @@ This showed me that I could take process information from `ps` and pass it into 
 
 This is one of the ways Linux commands become building blocks for larger tasks.
 
----
 
 # 19. Single Quotes and Double Quotes
 
@@ -1236,7 +1227,6 @@ treats the text literally.
 
 allows the variable to be expanded.
 
----
 
 # 20. Building a Basic System Check
 
@@ -1245,7 +1235,6 @@ I created:
 ```bash
 nano system-check.sh
 ```
-
 and made it executable.
 
 When I ran:
@@ -1253,9 +1242,7 @@ When I ran:
 ```bash
 ./system-check.sh
 ```
-
 the script produced a small report containing:
-
 ```text
 ==============================
 Basic Linux System Check
@@ -1301,8 +1288,6 @@ df -h
 free -h
 ```
 
----
-
 # 21. Saving the System Report
 
 I then redirected the output into a file:
@@ -1310,13 +1295,11 @@ I then redirected the output into a file:
 ```bash
 ./system-check.sh > system-report.txt
 ```
-
 Then:
 
 ```bash
 cat system-report.txt
 ```
-
 The report contained the same type of information, including:
 
 ```text
@@ -1341,10 +1324,8 @@ Output redirection
      ↓
 Saved report
 ```
-
 That is a simple but useful automation pattern.
 
----
 
 # 22. A Basic Security-Oriented Check
 
@@ -1353,7 +1334,6 @@ I created:
 ```bash
 nano security-check.sh
 ```
-
 The script collected:
 
 - Current user
@@ -1398,7 +1378,6 @@ This was not a full security audit.
 
 It was simply a safe practice script showing how Bash can collect information that may be useful during system investigation.
 
----
 
 # 23. Checking a Command's Result from a Script
 
@@ -1452,7 +1431,6 @@ The command succeeded.
 
 This gave me a practical example of using an exit status to make a decision.
 
----
 
 # 24. My Final Mini Automation Project
 
@@ -1498,7 +1476,6 @@ bash -n learner-report.sh
 
 with no syntax error.
 
----
 
 ## Running Without a Name
 
@@ -1521,7 +1498,6 @@ Usage: ./learner-report.sh YourName
 
 This was my `if` condition working.
 
----
 
 ## Running With My Name
 
@@ -1530,7 +1506,6 @@ I then ran:
 ```bash
 ./learner-report.sh Aminul
 ```
-
 The output was:
 
 ```text
@@ -1591,7 +1566,6 @@ report
 
 This was my clearest example of Bash becoming an automation tool rather than just a place to type commands.
 
----
 
 # Key Concepts I Learned
 
