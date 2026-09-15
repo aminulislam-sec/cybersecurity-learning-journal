@@ -47,7 +47,6 @@ Bash can do more than run one command at a time. It can also put commands togeth
 
 That makes Bash especially useful for Linux administration, cybersecurity work, documentation tasks, and automation.
 
----
 
 ## Environment
 
@@ -83,7 +82,6 @@ However, several later scripts were created in my home directory:
 
 This difference became an important learning point when I tried to use `hello.sh` from the wrong directory.
 
----
 
 # 1. Checking My Shell
 
@@ -113,7 +111,6 @@ bash
 
 This confirmed that Bash was the shell I was working with.
 
----
 
 # 2. Creating the Bash Lab
 
@@ -176,7 +173,6 @@ mkdir -p bash-lab
 
 are two separate commands. They cannot simply be placed next to each other with a space.
 
----
 
 # 3. My First Bash Script
 
@@ -218,7 +214,6 @@ Automation begins with small steps.
 
 This was my first successful Bash script.
 
----
 
 # 4. Making the Script Executable
 
@@ -248,7 +243,7 @@ Then:
 ls -l hello.sh
 ```
 
-gave:
+The output:
 
 ```text
 -rwxrwxr-x 1 aminul aminul 115 Sep 13 23:38 hello.sh
@@ -284,7 +279,6 @@ and, after making it executable:
 
 The `x` in the permissions represents execute permission.
 
----
 
 # 5. Bash Variables
 
@@ -358,8 +352,6 @@ NAME
 Aminul
 ```
 
----
-
 # 6. Creating a Variables Script
 
 I created:
@@ -390,7 +382,6 @@ Current directory: /home/aminul
 
 This showed me that a script can use variables and also use information already provided by the shell, such as `$PWD`.
 
----
 
 # 7. User Input
 
@@ -454,7 +445,6 @@ Welcome to Bash scripting.
 
 The `read` command allows a Bash script to receive information from the user.
 
----
 
 # 8. Positional Parameters
 
@@ -540,7 +530,6 @@ $2 = Linux
 
 This is useful for automation because a script can receive different information each time it runs.
 
----
 
 # 9. Exit Status
 
@@ -607,7 +596,6 @@ non-zero = failure
 
 The exact non-zero value can depend on the command.
 
----
 
 ## Why `$?` must be checked immediately
 
@@ -655,7 +643,6 @@ This was an important lesson:
 
 > If I want to check the exit status of a command, I should check `$?` immediately after that command.
 
----
 
 # 10. Conditionals
 
@@ -714,7 +701,6 @@ Fi
 
 are not the same.
 
----
 
 # 11. Checking Whether a File Exists
 
