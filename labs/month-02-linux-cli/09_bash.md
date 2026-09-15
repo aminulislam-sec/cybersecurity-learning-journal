@@ -1675,7 +1675,6 @@ and:
 
 do not behave the same way.
 
----
 
 # Security Perspective
 
@@ -1725,8 +1724,6 @@ Verify
 Automate
 ```
 
----
-
 # Mistakes I Made (Learning Moments)
 
 This lesson had several genuine learning moments.
@@ -1747,7 +1744,6 @@ bash: cd: too many arguments
 
 I corrected it by running the commands separately.
 
----
 
 ## 2. The conditional and loop instructions contained capitalization mistakes
 
@@ -1795,7 +1791,6 @@ before running them.
 
 This was also a lesson for me about checking technical instructions carefully.
 
----
 
 ## 3. I used `chmod +check-file.sh`
 
@@ -1810,14 +1805,11 @@ and received:
 ```text
 chmod: missing operand after ‘+check-file.sh’
 ```
-
 The correct command was:
 
 ```bash
 chmod +x check-file.sh
 ```
-
----
 
 ## 4. I used the wrong form of `chmod` for the loop
 
@@ -1844,8 +1836,6 @@ I corrected it with:
 ```bash
 chmod +x loop.sh
 ```
-
----
 
 ## 5. I looked for `hello.sh` in the wrong directory
 
@@ -1882,7 +1872,6 @@ ls
 
 before assuming that a file does not exist.
 
----
 
 ## 6. I used wrong filenames before creating them
 
@@ -1908,8 +1897,6 @@ Bash correctly returned:
 No such file or directory
 ```
 
----
-
 ## 7. I used a capital `B` in `Bash`
 
 I typed:
@@ -1932,7 +1919,6 @@ Command 'Bash' not found
 
 This reinforced the case-sensitive nature of Linux commands.
 
----
 
 ## 8. I learned that `$?` changes
 
@@ -1940,7 +1926,6 @@ I tested a failed command and then ran another successful command before checkin
 
 That taught me that `$?` refers to the immediately previous command.
 
----
 
 ## 9. I accidentally had extra text in `check-command.sh`
 
@@ -1958,298 +1943,121 @@ Command 'The' not found
 
 I corrected the script and tested it again.
 
----
 
-# Screenshots
+## Screenshots
 
-The following screenshots are the GitHub-ready image references I prepared for this lesson. I should place the actual screenshots in the repository's `images` folder using these filenames.
+### 1. Bash Lab Setup
 
-## 1. Shell check
-
-```markdown
-![Bash shell check](images/journal09_shell_check.png)
-```
-
-Commands:
-
-```bash
-echo $SHELL
-echo $0
-```
+![Bash Lab Setup](images/journal09_bash_lab_setup.png)
 
 ---
 
-## 2. Bash lab setup
+### 2. Check Directory
 
-```markdown
-![Bash lab setup](images/journal09_bash_lab_setup.png)
-```
-
-Commands:
-
-```bash
-pwd
-ls -la
-```
+![Directory Check](images/journal09_directory_check.png)
 
 ---
 
-## 3. First Bash script
+### 3. Check Exit Status
 
-```markdown
-![First Bash script](images/journal09_first_script.png)
-```
-
-Command:
-
-```bash
-cat hello.sh
-```
+![Exit Status](images/journal09_exit_status.png)
 
 ---
 
-## 4. Script execution and permissions
+### 4. Check Exit Status with a Script
 
-```markdown
-![Bash script execution](images/journal09_script_execution.png)
-```
-
-Commands:
-
-```bash
-ls -l hello.sh
-chmod +x hello.sh
-ls -l hello.sh
-./hello.sh
-```
+![Exit Status Script](images/journal09_exit_status_script.png)
 
 ---
 
-## 5. Variables
+### 5. Final Bash Project
 
-```markdown
-![Bash variables](images/journal09_variables.png)
-```
-
-Command:
-
-```bash
-./variables.sh
-```
+![Final Bash Project](images/journal09_final_project.png)
 
 ---
 
-## 6. User input
+### 6. First Bash Script
 
-```markdown
-![Bash user input](images/journal09_user_input.png)
-```
-
-Command:
-
-```bash
-./user-input.sh
-```
+![First Bash Script](images/journal09_first_script.png)
 
 ---
 
-## 7. Positional parameters
+### 7. `for` Loop
 
-```markdown
-![Bash positional parameters](images/journal09_positional_parameters.png)
-```
-
-Command:
-
-```bash
-./greet.sh Aminul Linux
-```
+![For Loop](images/journal09_for_loop.png)
 
 ---
 
-## 8. Exit status
+### 8. Check if a File Exists
 
-```markdown
-![Bash exit status](images/journal09_exit_status.png)
-```
-
-Commands:
-
-```bash
-pwd
-echo $?
-
-ls file-that-does-not-exist
-echo $?
-```
+![File Existence Check](images/journal09_if_file_exists.png)
 
 ---
 
-## 9. File conditional
+### 9. Pipes and Redirection
 
-```markdown
-![Bash file conditional](images/journal09_if_file_exists.png)
-```
-
-Commands:
-
-```bash
-cat check-file.sh
-bash -n check-file.sh
-./check-file.sh
-```
+![Pipes and Redirection](images/journal09_pipes_redirection.png)
 
 ---
 
-## 10. Directory conditional
+### 10. Positional Parameters
 
-```markdown
-![Bash directory conditional](images/journal09_directory_check.png)
-```
-
-Commands:
-
-```bash
-echo "$HOME"
-ls -ld "$HOME"
-./check-directory.sh
-```
+![Positional Parameters](images/journal09_positional_parameters.png)
 
 ---
 
-## 11. For loop
+### 11. Shell Quoting
 
-```markdown
-![Bash for loop](images/journal09_for_loop.png)
-```
-
-Commands:
-
-```bash
-cat loop.sh
-bash -n loop.sh
-chmod +x loop.sh
-ls -l loop.sh
-./loop.sh
-```
+![Shell Quoting](images/journal09_quoting.png)
 
 ---
 
-## 12. File loop
+### 12. Script Execution
 
-```markdown
-![Bash file loop](images/journal09_file_loop.png)
-```
-
-Command:
-
-```bash
-for FILE in *.sh
-do
-    echo "Script found: $FILE"
-done
-```
+![Script Execution](images/journal09_script_execution.png)
 
 ---
 
-## 13. Pipes and redirection
+### 13. Script Files
 
-```markdown
-![Bash pipes and redirection](images/journal09_pipes_redirection.png)
-```
-
-Commands:
-
-```bash
-cat output.txt
-ls -l | grep ".sh"
-```
+![Script Files](images/journal09_script_files.png)
 
 ---
 
-## 14. Quoting
+### 14. Security Check Script
 
-```markdown
-![Bash quoting](images/journal09_quoting.png)
-```
-
-Commands:
-
-```bash
-NAME="Aminul"
-echo '$NAME'
-echo "$NAME"
-```
+![Security Check](images/journal09_security_check.png)
 
 ---
 
-## 15. System check
+### 15. Shell Check
 
-```markdown
-![Bash system check](images/journal09_system_check.png)
-```
-
-Command:
-
-```bash
-./system-check.sh
-```
+![Shell Check](images/journal09_shell_check.png)
 
 ---
 
-## 16. Saved system report
+### 16. System Check
 
-```markdown
-![Bash system report](images/journal09_system_report.png)
-```
-
-Commands:
-
-```bash
-./system-check.sh > system-report.txt
-cat system-report.txt
-```
+![System Check](images/journal09_system_check.png)
 
 ---
 
-## 17. Security-oriented check
+### 17. System Report
 
-```markdown
-![Bash security check](images/journal09_security_check.png)
-```
-
-Command:
-
-```bash
-./security-check.sh
-```
+![System Report](images/journal09_system_report.png)
 
 ---
 
-## 18. Exit status inside a script
+### 18. User Input
 
-```markdown
-![Bash exit status inside a script](images/journal09_exit_status_script.png)
-```
-
-This should show the corrected `check-command.sh` handling both a successful and failed command.
+![User Input](images/journal09_user_input.png)
 
 ---
 
-## 19. Final automation project
+### 19. Bash Variables
 
-```markdown
-![Bash final automation project](images/journal09_final_project.png)
-```
+![Bash Variables](images/journal09_variables.png)
 
-Commands:
-
-```bash
-./learner-report.sh
-./learner-report.sh Aminul
-```
-
----
 
 # Skills Developed
 
@@ -2277,7 +2085,6 @@ By completing this lesson, I practiced:
 - Troubleshooting
 - Small-scale automation
 
----
 
 # Related Commands
 
@@ -2325,8 +2132,6 @@ for
 do
 done
 ```
-
----
 
 # Reflection
 
@@ -2378,7 +2183,6 @@ The most important idea I am taking from this lesson is simple:
 
 That is an important step toward the kind of cybersecurity documentation and automation work I want to learn.
 
----
 
 # Next Step
 
@@ -2390,7 +2194,6 @@ Lesson 10 — Logs
 
 There I will learn how Linux records events and how those records can help with troubleshooting, system administration, and basic security investigation.
 
----
 
 # References
 
