@@ -5,9 +5,7 @@
 **Learner:** Aminul Islam  
 **Environment:** Linux Mint, systemd, Bash  
 **Lab directory:** `~/3-CyberLab/Linux-CLI-Month-2/10-Logs`  
-**Practice date:** 27–28 September 2026
 
----
 
 ## 1. Learning Objectives
 
