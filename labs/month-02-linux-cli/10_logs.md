@@ -5,6 +5,7 @@
 **Learner:** Aminul Islam  
 **Environment:** Linux Mint, systemd, Bash  
 **Lab directory:** `~/3-CyberLab/Linux-CLI-Month-2/10-Logs`  
+**Practice date:** 27–28 September 2026
 
 
 ## 1. Learning Objectives
@@ -320,7 +321,7 @@ log-summary.sh: line 31: syntax error: unexpected end of file
 
 The script displayed its heading but failed before completing the analysis. I stopped the repeated attempt, opened the file in `nano`, corrected the script, and ran it again. The final run completed successfully and printed the expected counts.
 
-The lesson for me was to use `bash -n` to check syntax before relying on a script's output. When Bash reports an unexpected end of file, I should inspect paired structures such as `if`/`fi`, loops, and quotation marks.
+The lesson for me was to use `bash -n` to check syntax before relying on a script's output. When Bash reports an unexpected end of file, I should inspect paired structures such as `if`/`fi`, loops, and quotation marks. I found "fi" was mistakenly written as "Fi". So, I corrected to "fi". 
 
 ## 14. Mistakes I Made (Learning Moments)
 
@@ -354,23 +355,7 @@ My practice also reinforced several precautions:
 
 ## 16. Screenshots
 
-The following screenshots were planned for this lesson. Capture only genuine terminal output and review each image for sensitive information before publishing it.
 
-- `journal10_var_log.png` — `ls -lah /var/log`
-- `journal10_log_inventory.png` — file and directory inventories
-- `journal10_recent_logs.png` — recent journal entries
-- `journal10_current_boot.png` — current-boot entries
-- `journal10_boot_history.png` — retained boot history
-- `journal10_today.png` — time-filtered entries
-- `journal10_warnings.png` — warning-priority entries
-- `journal10_errors.png` — error-priority entries
-- `journal10_kernel_logs.png` — kernel messages
-- `journal10_service_logs.png` — service-specific journal output
-- `journal10_follow.png` — live journal following
-- `journal10_search.png` — journal search
-- `journal10_disk_usage.png` — journal disk usage
-- `journal10_last_logins.png` — login history (redact sensitive details if needed)
-- `journal10_log_analyzer.png` — final successful script output
 
 ## 17. Skills Developed
 
