@@ -355,6 +355,84 @@ My practice also reinforced several precautions:
 
 ## 16. Screenshots
 
+### 1. Boot History
+
+![Boot History](images/journal10_boot_history.png)
+
+
+### 2. Current Boot Information
+
+![Current Boot Information](images/journal10_current_boot.png)
+
+
+### 3. Disk Usage
+
+![Disk Usage](images/journal10_disk_usage.png)
+
+
+### 4. Log Errors
+
+![Log Errors](images/journal10_errors.png)
+
+
+### 5. Follow Logs in Real Time
+
+![Follow Logs](images/journal10_follow.png)
+
+
+### 6. Kernel Logs
+
+![Kernel Logs](images/journal10_kernel_logs.png)
+
+
+### 7. View Recent Log Entries
+
+![Recent Log Entries](images/journal10_last_logs.png)
+
+
+### 8. Log Analyzer
+
+![Log Analyzer](images/journal10_log_analyzer.png)
+
+
+### 9. Log Inventory — Part 1
+
+![Log Inventory Part 1](images/journal10_log_inventory_1.png)
+
+
+### 10. Log Inventory — Part 2
+
+![Log Inventory Part 2](images/journal10_log_inventory_2.png)
+
+
+### 11. Recent Logs
+
+![Recent Logs](images/journal10_recent_logs.png)
+
+
+### 12. Search Logs
+
+![Search Logs](images/journal10_search.png)
+
+
+### 13. Service Logs
+
+![Service Logs](images/journal10_service_logs.png)
+
+
+### 14. Today's Logs
+
+![Today's Logs](images/journal10_today.png)
+
+
+### 15. View `/var/log`
+
+![Var Log Directory](images/journal10_var_log.png)
+
+
+### 16. Log Warnings
+
+![Log Warnings](images/journal10_warnings.png)
 
 
 ## 17. Skills Developed
