@@ -387,7 +387,7 @@ My practice also reinforced several precautions:
 
 ### 7. View Recent Log Entries
 
-![Recent Log Entries](images/journal10_last_logs.png)
+![Recent Log Entries](images/journal10_last_logins.png)
 
 
 ### 8. Log Analyzer
