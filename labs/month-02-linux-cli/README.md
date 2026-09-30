@@ -10,16 +10,16 @@ All 10 lessons have been completed, with practical exercises and GitHub learning
 
 **Lesson	  Topic	                              Status**
 
-01	  Linux Filesystem	                        ✅ Completed
-02	  Navigation	                              ✅ Completed
-03	  File Operations	                          ✅ Completed
-04	  Permissions & Ownership	                  ✅ Completed
-05	  Users, Groups & Permissions	              ✅ Completed
-06	  Processes	                                ✅ Completed
-07	  Services	                                ✅ Completed
-08	  Package Management	                      ✅ Completed
-09	  Bash Scripting	                          ✅ Completed
-10	  Log Analysis	                            ✅ Completed
+- 01	  Linux Filesystem	                        ✅ Completed
+- 02	  Navigation	                              ✅ Completed
+- 03	  File Operations	                          ✅ Completed
+- 04	  Permissions & Ownership	                  ✅ Completed
+- 05	  Users, Groups & Permissions	              ✅ Completed
+- 06	  Processes	                                ✅ Completed
+- 07	  Services	                                ✅ Completed
+- 08	  Package Management	                      ✅ Completed
+- 09	  Bash Scripting	                          ✅ Completed
+- 10	  Log Analysis	                            ✅ Completed
 
 
 ## Skills Developed
